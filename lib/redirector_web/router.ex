@@ -9,7 +9,6 @@ defmodule RedirectorWeb.Router do
     pipe_through(:redirects)
 
     get("/", RedirectController, :redirect_root)
-    get("/texas*segments", RedirectController, :redirect_texas)
-    get("/new_york*segments", RedirectController, :redirect_newyork)
+    get("/*segments", RedirectController, :redirect_state)
   end
 end

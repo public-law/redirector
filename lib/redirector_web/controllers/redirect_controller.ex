@@ -8,17 +8,18 @@ defmodule RedirectorWeb.RedirectController do
     |> halt
   end
 
-  def redirect_texas(conn, %{"segments" => ["texas" | t]}) do
-    conn
-    |> put_status(301)
-    |> redirect(external: "https://texas.public.law/#{Enum.join(t, "/")}")
-    |> halt
-  end
+  def redirect_state(conn, %{"segments" => [state | tail]}) do
+    domain =
+      case state do
+        "new_york" -> "newyork"
+        _ -> state
+      end
 
-  def redirect_newyork(conn, %{"segments" => ["new_york" | t]}) do
+    path = Enum.join(tail, "/")
+
     conn
     |> put_status(301)
-    |> redirect(external: "https://newyork.public.law/#{Enum.join(t, "/")}")
+    |> redirect(external: "https://#{domain}.public.law/#{path}")
     |> halt
   end
 end
