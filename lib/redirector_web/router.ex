@@ -10,5 +10,6 @@ defmodule RedirectorWeb.Router do
 
     get("/", RedirectController, :redirect_root)
     get("/texas*segments", RedirectController, :redirect_texas)
+    get("/new_york*segments", RedirectController, :redirect_newyork)
   end
 end

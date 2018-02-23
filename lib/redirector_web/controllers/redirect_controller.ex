@@ -14,4 +14,11 @@ defmodule RedirectorWeb.RedirectController do
     |> redirect(external: "https://texas.public.law/#{Enum.join(t, "/")}")
     |> halt
   end
+
+  def redirect_newyork(conn, %{"segments" => ["new_york" | t]}) do
+    conn
+    |> put_status(301)
+    |> redirect(external: "https://newyork.public.law/#{Enum.join(t, "/")}")
+    |> halt
+  end
 end
