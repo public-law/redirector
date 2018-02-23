@@ -30,4 +30,14 @@ defmodule RedirectorWeb.RedirectControllerTest do
              "https://newyork.public.law/laws/n.y._multiple_dwelling_law_section_2"
            ]
   end
+
+  test "leaf node California redirect", %{conn: conn} do
+    conn = get(conn, "/california/codes/ca_sts_and_high_code_div_1_chap_1.5")
+
+    assert conn.status == 301
+
+    assert get_resp_header(conn, "location") == [
+             "https://california.public.law/codes/ca_sts_and_high_code_div_1_chap_1.5"
+           ]
+  end
 end
