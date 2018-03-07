@@ -19,7 +19,11 @@ defmodule RedirectorWeb.ApiController do
         "#{a}.#{b}.#{c}.#{d}"
       end
 
-    {:ok, domain} = Host.reverse_lookup(ip: ip)
+    domain =
+      case Host.reverse_lookup(ip: ip) do
+        {:ok, d} -> d
+        {:error, _} -> "No Domain"
+      end
 
     answer =
       case Redirector.preferred_visitor?(domain: domain) do
