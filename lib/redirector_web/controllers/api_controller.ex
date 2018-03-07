@@ -6,13 +6,20 @@ defmodule RedirectorWeb.ApiController do
     ip = "#{a}.#{b}.#{c}.#{d}"
     {:ok, domain} = Host.reverse_lookup(ip: ip)
 
+    answer =
+      case Redirector.preferred_visitor?(domain: domain) do
+        true ->
+          "yes"
+
+        false ->
+          "no"
+      end
+
     content = %{
-      "is_preferred_visitor" => "no",
+      "is_preferred_visitor" => answer,
       "remote_ip" => ip,
       "remote_domain" => domain
     }
-
-    # TODO: preferred_origin?(conn.remote_ip)
 
     conn
     |> put_resp_content_type("text/json")
