@@ -12,7 +12,7 @@ defmodule RedirectorWeb.Router do
   scope "/api", RedirectorWeb do
     pipe_through(:api)
 
-    get("/api/is_preferred_visitor", ApiController, :is_preferred_visitor)
+    get("/is_preferred_visitor", ApiController, :is_preferred_visitor)
   end
 
   scope "/", RedirectorWeb do
