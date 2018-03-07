@@ -1,6 +1,12 @@
 defmodule RedirectorWeb.ApiController do
   use RedirectorWeb, :controller
 
+  def debug(conn, _params) do
+    conn
+    |> put_resp_content_type("text/plain")
+    |> send_resp(200, inspect(conn))
+  end
+
   def is_preferred_visitor(conn, _params) do
     {a, b, c, d} = conn.remote_ip
     ip = "#{a}.#{b}.#{c}.#{d}"
