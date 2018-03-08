@@ -11,17 +11,7 @@ defmodule RedirectorWeb.ApiController do
 
 
   def is_preferred_visitor(conn, _params) do
-    remote_ip =
-      case x_forwarded_for(conn) do
-        {:ok, addr} -> addr
-        {:error, _} -> as_string(ip: conn.remote_ip)
-      end
-
-    remote_domain =
-      case Host.reverse_lookup(ip: remote_ip) do
-        {:ok, domain} -> domain
-        {:error, _} -> "No Domain"
-      end
+    {remote_ip, remote_domain} = remote_info(conn)
 
     answer =
       case preferred_visitor?(domain: remote_domain) do
@@ -40,6 +30,22 @@ defmodule RedirectorWeb.ApiController do
     |> send_resp(200, json_content)
   end
 
+
+  defp remote_info(conn) do
+    remote_ip =
+      case x_forwarded_for(conn) do
+        {:ok, addr} -> addr
+        {:error, _} -> as_string(ip: conn.remote_ip)
+      end
+
+    remote_domain =
+      case Host.reverse_lookup(ip: remote_ip) do
+        {:ok, domain} -> domain
+        {:error, _} -> "No Domain"
+      end
+    
+    {remote_ip, remote_domain}
+  end
 
   defp x_forwarded_for(conn) do
     case Enum.find(conn.req_headers, fn {k, _v} -> k == "x-forwarded-for" end) do
