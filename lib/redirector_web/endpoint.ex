@@ -36,7 +36,7 @@ defmodule RedirectorWeb.Endpoint do
     key: "_redirector_key",
     signing_salt: "TUKGyE94"
 
-  plug CORSPlug, origin: ~r/https.+\.public\.law$/
+  plug CORSPlug
   plug RedirectorWeb.Router
 
   @doc """
