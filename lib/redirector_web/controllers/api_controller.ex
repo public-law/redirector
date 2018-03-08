@@ -32,9 +32,9 @@ defmodule RedirectorWeb.ApiController do
       end
 
     content = %{
-      "is_preferred_visitor" => answer,
       "remote_ip" => ip,
-      "remote_domain" => domain
+      "remote_domain" => domain,
+      "is_preferred_visitor" => answer,
     }
 
     conn
