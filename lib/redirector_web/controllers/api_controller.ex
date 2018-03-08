@@ -8,10 +8,8 @@ defmodule RedirectorWeb.ApiController do
   end
 
   def is_preferred_visitor(conn, _params) do
-    xff = Enum.find(conn.req_headers, fn {k, _v} -> k == "x-forwarded-for" end)
-
     ip =
-      case xff do
+      case forwarded_for(conn) do
         {"x-forwarded-for", ip_string} -> ip_string
         nil ->
           {a, b, c, d} = conn.remote_ip
@@ -42,5 +40,9 @@ defmodule RedirectorWeb.ApiController do
     conn
     |> put_resp_content_type("text/json")
     |> send_resp(200, Poison.encode!(content))
+  end
+
+  defp forwarded_for(conn) do
+    Enum.find(conn.req_headers, fn {k, _v} -> k == "x-forwarded-for" end)
   end
 end
