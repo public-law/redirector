@@ -11,9 +11,7 @@ defmodule RedirectorWeb.ApiController do
     ip =
       case x_forwarded_for(conn) do
         {:ok, addr} -> addr
-        {:error, _} ->
-          {a, b, c, d} = conn.remote_ip
-          "#{a}.#{b}.#{c}.#{d}"
+        {:error, _} -> as_string(conn.remote_ip)
       end
 
     domain =
@@ -48,5 +46,9 @@ defmodule RedirectorWeb.ApiController do
       {"x-forwarded-for", ip_string} -> {:ok, ip_string}
       nil -> {:error, "Not found"}
     end
+  end
+
+  defp as_string(ip: {a,b,c,d}) do
+    "#{a}.#{b}.#{c}.#{d}"
   end
 end
