@@ -30,7 +30,7 @@ defmodule RedirectorWeb.ApiController do
           "no"
       end
 
-    content = %{
+    json_content = Poison.encode! %{
       "remote_ip" => remote_ip,
       "remote_domain" => remote_domain,
       "is_preferred_visitor" => answer,
@@ -38,7 +38,7 @@ defmodule RedirectorWeb.ApiController do
 
     conn
     |> put_resp_content_type("text/json")
-    |> send_resp(200, Poison.encode!(content))
+    |> send_resp(200, json_content)
   end
 
 
