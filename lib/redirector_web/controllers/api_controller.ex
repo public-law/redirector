@@ -11,12 +11,11 @@ defmodule RedirectorWeb.ApiController do
     xff = Enum.find(conn.req_headers, fn {k, _v} -> k == "x-forwarded-for" end)
 
     ip =
-      if xff != nil do
-        {"x-forwarded-for", ip_string} = xff
-        ip_string
-      else
-        {a, b, c, d} = conn.remote_ip
-        "#{a}.#{b}.#{c}.#{d}"
+      case xff do
+        {"x-forwarded-for", ip_string} -> ip_string
+        nil ->
+          {a, b, c, d} = conn.remote_ip
+          "#{a}.#{b}.#{c}.#{d}"
       end
 
     domain =
