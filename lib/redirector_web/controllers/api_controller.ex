@@ -1,5 +1,7 @@
 defmodule RedirectorWeb.ApiController do
   use RedirectorWeb, :controller
+  import Redirector
+
 
   def debug(conn, _params) do
     conn
@@ -22,12 +24,9 @@ defmodule RedirectorWeb.ApiController do
       end
 
     answer =
-      case Redirector.preferred_visitor?(domain: remote_domain) do
-        true ->
-          "yes"
-
-        false ->
-          "no"
+      case preferred_visitor?(domain: remote_domain) do
+        true -> "yes"
+        false -> "no"
       end
 
     json_content = Poison.encode! %{
