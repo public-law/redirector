@@ -7,21 +7,22 @@ defmodule RedirectorWeb.ApiController do
     |> send_resp(200, inspect(conn))
   end
 
+
   def is_preferred_visitor(conn, _params) do
-    ip =
+    remote_ip =
       case x_forwarded_for(conn) do
         {:ok, addr} -> addr
-        {:error, _} -> as_string(conn.remote_ip)
+        {:error, _} -> as_string(ip: conn.remote_ip)
       end
 
-    domain =
-      case Host.reverse_lookup(ip: ip) do
-        {:ok, d} -> d
+    remote_domain =
+      case Host.reverse_lookup(ip: remote_ip) do
+        {:ok, domain} -> domain
         {:error, _} -> "No Domain"
       end
 
     answer =
-      case Redirector.preferred_visitor?(domain: domain) do
+      case Redirector.preferred_visitor?(domain: remote_domain) do
         true ->
           "yes"
 
@@ -30,8 +31,8 @@ defmodule RedirectorWeb.ApiController do
       end
 
     content = %{
-      "remote_ip" => ip,
-      "remote_domain" => domain,
+      "remote_ip" => remote_ip,
+      "remote_domain" => remote_domain,
       "is_preferred_visitor" => answer,
     }
 
