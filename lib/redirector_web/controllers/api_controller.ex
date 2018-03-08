@@ -1,5 +1,7 @@
 defmodule RedirectorWeb.ApiController do
   use RedirectorWeb, :controller
+  import Redirector
+
 
   def debug(conn, _params) do
     conn
@@ -7,41 +9,52 @@ defmodule RedirectorWeb.ApiController do
     |> send_resp(200, inspect(conn))
   end
 
+
   def is_preferred_visitor(conn, _params) do
-    xff = Enum.find(conn.req_headers, fn {k, _v} -> k == "x-forwarded-for" end)
-
-    ip =
-      if xff != nil do
-        {"x-forwarded-for", ip_string} = xff
-        ip_string
-      else
-        {a, b, c, d} = conn.remote_ip
-        "#{a}.#{b}.#{c}.#{d}"
-      end
-
-    domain =
-      case Host.reverse_lookup(ip: ip) do
-        {:ok, d} -> d
-        {:error, _} -> "No Domain"
-      end
+    {remote_ip, remote_domain} = remote_info(conn)
 
     answer =
-      case Redirector.preferred_visitor?(domain: domain) do
-        true ->
-          "yes"
-
-        false ->
-          "no"
+      case preferred_visitor?(domain: remote_domain) do
+        true -> "yes"
+        false -> "no"
       end
 
-    content = %{
+    json_content = Poison.encode! %{
+      "remote_ip" => remote_ip,
+      "remote_domain" => remote_domain,
       "is_preferred_visitor" => answer,
-      "remote_ip" => ip,
-      "remote_domain" => domain
     }
 
     conn
     |> put_resp_content_type("text/json")
-    |> send_resp(200, Poison.encode!(content))
+    |> send_resp(200, json_content)
+  end
+
+
+  defp remote_info(conn) do
+    remote_ip =
+      case x_forwarded_for(conn) do
+        {:ok, addr} -> addr
+        {:error, _} -> as_string(ip: conn.remote_ip)
+      end
+
+    remote_domain =
+      case Host.reverse_lookup(ip: remote_ip) do
+        {:ok, domain} -> domain
+        {:error, _} -> "No Domain"
+      end
+    
+    {remote_ip, remote_domain}
+  end
+
+  defp x_forwarded_for(conn) do
+    case Enum.find(conn.req_headers, fn {k, _v} -> k == "x-forwarded-for" end) do
+      {"x-forwarded-for", ip_string} -> {:ok, ip_string}
+      nil -> {:error, "Not found"}
+    end
+  end
+
+  defp as_string(ip: {a,b,c,d}) do
+    "#{a}.#{b}.#{c}.#{d}"
   end
 end
