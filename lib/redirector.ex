@@ -8,6 +8,19 @@ defmodule Redirector do
   """
 
   def preferred_visitor?(domain: domain) when is_bitstring(domain) do
-    String.ends_with?(domain, [".edu", ".gov", ".lv.cox.net", ".mil"])
+    String.ends_with?(domain, [
+      ".cityofsalem.net",
+      ".clackamas.us",
+      ".edu",
+      ".gov",
+      ".ca.us",
+      ".multco.us",
+      ".ny.us",
+      ".or.us",
+      ".tx.us",
+      ".org",
+      ".mil",
+      "ip98-160-160-3.lv.lv.cox.net"
+    ])
   end
 end
