@@ -20,6 +20,7 @@ defmodule RedirectorWeb.Router do
     pipe_through(:redirects)
 
     get("/", RedirectController, :redirect_root)
+    get("/states/*segments", RedirectController, :redirect_old_format)
     get("/*segments", RedirectController, :redirect_state)
   end
 end
