@@ -23,7 +23,7 @@ defmodule RedirectorWeb.RedirectController do
     |> halt
   end
 
-  def redirect_old_format(conn, %{"segments" => [state, collection, page]}) do
+  def redirect_old_format(conn, %{"segments" => [state, _collection, page]}) do
     domain =
       case state do
         "new_york" -> "newyork"
@@ -37,7 +37,7 @@ defmodule RedirectorWeb.RedirectController do
     }
 
     corrected_page =
-      if (domain = "california") && !String.contains?(page, "code_section") do
+      if domain == "california" && !String.contains?(page, "code_section") do
         String.replace(page, "_section", "_code_section")
       else
         page
