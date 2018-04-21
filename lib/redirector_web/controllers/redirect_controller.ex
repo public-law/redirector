@@ -15,12 +15,7 @@ defmodule RedirectorWeb.RedirectController do
   end
 
   def redirect_state(conn, %{"segments" => [state | tail]}) do
-    domain =
-      case state do
-        "new_york" -> "newyork"
-        _ -> state
-      end
-
+    domain = translate_state(state)
     path = Enum.join(tail, "/")
 
     conn
@@ -30,11 +25,7 @@ defmodule RedirectorWeb.RedirectController do
   end
 
   def redirect_old_format(conn, %{"segments" => [state, _collection, page]}) do
-    domain =
-      case state do
-        "new_york" -> "newyork"
-        _ -> state
-      end
+    domain = translate_state(state)
 
     corrected_page =
       if domain == "california" && !String.contains?(page, "code_section") do
@@ -49,5 +40,12 @@ defmodule RedirectorWeb.RedirectController do
     |> put_status(301)
     |> redirect(external: "https://#{domain}.public.law/#{path}")
     |> halt
+  end
+
+  defp translate_state(state) do
+    case state do
+      "new_york" -> "newyork"
+      _ -> state
+    end
   end
 end
