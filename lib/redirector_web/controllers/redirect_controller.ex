@@ -23,7 +23,7 @@ defmodule RedirectorWeb.RedirectController do
     |> halt
   end
 
-  def redirect_old_format(conn, %{"segments" => [state | [collection | tail]]}) do
+  def redirect_old_format(conn, %{"segments" => [state, collection, page]}) do
     domain =
       case state do
         "new_york" -> "newyork"
@@ -36,7 +36,14 @@ defmodule RedirectorWeb.RedirectController do
       "texas" => "statutes"
     }
 
-    path = Enum.join([collection_names[state]] ++ tail, "/")
+    corrected_page =
+      if (domain = "california") && !String.contains?(page, "code_section") do
+        String.replace(page, "_section", "_code_section")
+      else
+        page
+      end
+
+    path = Enum.join([collection_names[domain], corrected_page], "/")
 
     conn
     |> put_status(301)
