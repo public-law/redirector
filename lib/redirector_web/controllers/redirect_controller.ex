@@ -23,14 +23,20 @@ defmodule RedirectorWeb.RedirectController do
     |> halt
   end
 
-  def redirect_old_format(conn, %{"segments" => [state | tail]}) do
+  def redirect_old_format(conn, %{"segments" => [state | [collection | tail]]}) do
     domain =
       case state do
         "new_york" -> "newyork"
         _ -> state
       end
 
-    path = Enum.join(tail, "/")
+    collection_names = %{
+      "california" => "codes",
+      "newyork" => "laws",
+      "texas" => "statutes"
+    }
+
+    path = Enum.join([collection_names[state]] ++ tail, "/")
 
     conn
     |> put_status(301)
