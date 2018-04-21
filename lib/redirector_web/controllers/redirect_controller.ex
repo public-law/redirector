@@ -8,20 +8,14 @@ defmodule RedirectorWeb.RedirectController do
   }
 
   def redirect_root(conn, _params) do
-    conn
-    |> put_status(301)
-    |> redirect(external: "https://www.public.law")
-    |> halt
+    permanent_redirect(conn, to: "https://www.public.law")
   end
 
   def redirect_state(conn, %{"segments" => [state | tail]}) do
     domain = translate_state(state)
     path = Enum.join(tail, "/")
 
-    conn
-    |> put_status(301)
-    |> redirect(external: "https://#{domain}.public.law/#{path}")
-    |> halt
+    permanent_redirect(conn, to: "https://#{domain}.public.law/#{path}")
   end
 
   def redirect_old_format(conn, %{"segments" => [state, _collection, page]}) do
@@ -36,10 +30,7 @@ defmodule RedirectorWeb.RedirectController do
 
     path = Enum.join([@collection_names[domain], corrected_page], "/")
 
-    conn
-    |> put_status(301)
-    |> redirect(external: "https://#{domain}.public.law/#{path}")
-    |> halt
+    permanent_redirect(conn, to: "https://#{domain}.public.law/#{path}")
   end
 
   defp translate_state(state) do
@@ -47,5 +38,12 @@ defmodule RedirectorWeb.RedirectController do
       "new_york" -> "newyork"
       _ -> state
     end
+  end
+
+  defp permanent_redirect(conn, to: url) do
+    conn
+    |> put_status(301)
+    |> redirect(external: url)
+    |> halt
   end
 end
