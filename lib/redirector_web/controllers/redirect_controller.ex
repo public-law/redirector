@@ -1,6 +1,12 @@
 defmodule RedirectorWeb.RedirectController do
   use RedirectorWeb, :controller
 
+  @collection_names %{
+    "california" => "codes",
+    "newyork" => "laws",
+    "texas" => "statutes"
+  }
+
   def redirect_root(conn, _params) do
     conn
     |> put_status(301)
@@ -30,12 +36,6 @@ defmodule RedirectorWeb.RedirectController do
         _ -> state
       end
 
-    collection_names = %{
-      "california" => "codes",
-      "newyork" => "laws",
-      "texas" => "statutes"
-    }
-
     corrected_page =
       if domain == "california" && !String.contains?(page, "code_section") do
         String.replace(page, "_section", "_code_section")
@@ -43,7 +43,7 @@ defmodule RedirectorWeb.RedirectController do
         page
       end
 
-    path = Enum.join([collection_names[domain], corrected_page], "/")
+    path = Enum.join([@collection_names[domain], corrected_page], "/")
 
     conn
     |> put_status(301)
