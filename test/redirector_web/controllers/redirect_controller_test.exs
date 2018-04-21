@@ -40,4 +40,14 @@ defmodule RedirectorWeb.RedirectControllerTest do
              "https://california.public.law/codes/ca_sts_and_high_code_div_1_chap_1.5"
            ]
   end
+
+  test "very old-style california redirect", %{conn: conn} do
+    conn = get(conn, "/states/california/statutes/ca_penal_section_459")
+
+    assert conn.status == 301
+
+    assert get_resp_header(conn, "location") == [
+             "https://california.public.law/codes/ca_penal_code_section_459"
+           ]
+  end
 end
