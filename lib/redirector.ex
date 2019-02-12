@@ -21,7 +21,7 @@ defmodule Redirector do
       ".cityofsalem.net",
       ".mcgill.ca",
       ".ongov.net",
-      # "ip98-160-160-3.lv.lv.cox.net"
+      ".lv.cox.net"
     ])
   end
 end
