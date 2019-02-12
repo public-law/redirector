@@ -10,8 +10,7 @@ config :redirector, RedirectorWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "xwf/ACbUPPycH9J9L9RIk4ITv2bmtdha3SEcCizxDDCGyHFXzYVfYX1QsAKk9y6h",
   render_errors: [view: RedirectorWeb.ErrorView, accepts: ~w(json)],
-  pubsub: [name: Redirector.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Redirector.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -20,4 +19,7 @@ config :logger, :console,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"
+
+# Use Jason for JSON parsing in Phoenix
+config :phoenix, :json_library, Jason
