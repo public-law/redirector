@@ -20,8 +20,8 @@ defmodule Redirector do
       ".cityofalbany.net",
       ".cityofsalem.net",
       ".mcgill.ca",
-      ".ongov.net",
-      ".lv.cox.net"
+      ".ongov.net"
+      # ".lv.cox.net"
     ])
   end
 end
