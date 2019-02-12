@@ -9,6 +9,10 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
+## References
+
+* [phx-1.4-upgrade](https://gist.github.com/chrismccord/bb1f8b136f5a9e4abc0bfc07b832257e)
+
 ## Learn more
 
 * Official website: http://www.phoenixframework.org/

@@ -2,12 +2,14 @@ defmodule RedirectorWeb.ApiController do
   use RedirectorWeb, :controller
   import Redirector
 
+  @spec debug(Plug.Conn.t(), any()) :: Plug.Conn.t()
   def debug(conn, _params) do
     conn
     |> put_resp_content_type("text/plain")
     |> send_resp(200, inspect(conn))
   end
 
+  @spec is_preferred_visitor(Plug.Conn.t(), any()) :: Plug.Conn.t()
   def is_preferred_visitor(conn, _params) do
     {remote_ip, remote_domain} = remote_info(conn)
 
