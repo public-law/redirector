@@ -39,7 +39,7 @@ defmodule RedirectorWeb.ApiController do
       end
 
     remote_domain =
-      case Host.reverse_lookup(ip: remote_ip) do
+      case Host.ext_reverse_lookup(ip: remote_ip) do
         {:ok, domain} -> domain
         {:error, _} -> "No Domain"
       end

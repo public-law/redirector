@@ -37,7 +37,7 @@ defmodule Redirector.Mixfile do
       {:gettext, "~> 0.11"},
       {:plug_cowboy, "~> 1.0"},
       {:plug, "~> 1.7"},
-      {:host, "~> 0.2"},
+      {:host, "~> 1.0.0"},
       {:cors_plug, "~> 1.5"},
       {:jason, "~> 1.0"}
     ]
