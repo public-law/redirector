@@ -1,5 +1,5 @@
 defmodule Outliner.OutlinerTest do
-  use RedirectorWeb.ConnCase
+  use ExUnit.Case, async: true
 
   test "the test file works" do
     assert 1 + 1 == 2
