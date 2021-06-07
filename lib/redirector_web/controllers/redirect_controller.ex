@@ -17,17 +17,17 @@ defmodule RedirectorWeb.RedirectController do
     permanent_redirect(conn, to: "https://oregon.public.law/statutes")
   end
 
-  @spec redirect_ors_volume(Plug.Conn.t(), any) :: Plug.Conn.t()
+  @spec redirect_ors_volume(Plug.Conn.t(), map) :: Plug.Conn.t()
   def redirect_ors_volume(conn, %{"number" => number}) do
     permanent_redirect(conn, to: "https://oregon.public.law/statutes/ors_volume_#{number}")
   end
 
-  @spec redirect_ors_chapter(Plug.Conn.t(), any) :: Plug.Conn.t()
+  @spec redirect_ors_chapter(Plug.Conn.t(), map) :: Plug.Conn.t()
   def redirect_ors_chapter(conn, %{"number" => number}) do
     permanent_redirect(conn, to: "https://oregon.public.law/statutes/ors_chapter_#{number}")
   end
 
-  @spec redirect_ors_section(Plug.Conn.t(), any) :: Plug.Conn.t()
+  @spec redirect_ors_section(Plug.Conn.t(), map) :: Plug.Conn.t()
   def redirect_ors_section(conn, %{"number" => number}) do
     permanent_redirect(conn, to: "https://oregon.public.law/statutes/ors_#{number}")
   end
@@ -37,10 +37,12 @@ defmodule RedirectorWeb.RedirectController do
   # weblaws.org Redrects
   #
 
+  @spec redirect_root(Plug.Conn.t(), any) :: Plug.Conn.t()
   def redirect_root(conn, _params) do
     permanent_redirect(conn, to: "https://www.public.law")
   end
 
+  @spec redirect_state(Plug.Conn.t(), map) :: Plug.Conn.t()
   def redirect_state(conn, %{"segments" => [state | tail]}) do
     domain = translate_state(state)
     path = Enum.join(tail, "/")
@@ -48,6 +50,7 @@ defmodule RedirectorWeb.RedirectController do
     permanent_redirect(conn, to: "https://#{domain}.public.law/#{path}")
   end
 
+  @spec redirect_old_format(Plug.Conn.t(), map) :: Plug.Conn.t()
   def redirect_old_format(conn, %{"segments" => [state, _collection, page]}) do
     domain = translate_state(state)
 
