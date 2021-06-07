@@ -21,6 +21,7 @@ defmodule RedirectorWeb.Router do
 
     get("/oregon_revised_statutes", RedirectController, :redirect_ors_root)
     get("/ors/volume/:number", RedirectController, :redirect_ors_volume)
+    get("/ors/chapter/:number", RedirectController, :redirect_ors_chapter)
 
     get("/", RedirectController, :redirect_root)
     get("/states/*segments", RedirectController, :redirect_old_format)

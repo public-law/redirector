@@ -12,14 +12,20 @@ defmodule RedirectorWeb.RedirectController do
   # oregonlaws.org Redirects
   #
 
+  @spec redirect_ors_root(Plug.Conn.t(), any) :: Plug.Conn.t()
   def redirect_ors_root(conn, _params) do
     permanent_redirect(conn, to: "https://oregon.public.law/statutes")
   end
 
+  @spec redirect_ors_volume(Plug.Conn.t(), any) :: Plug.Conn.t()
   def redirect_ors_volume(conn, %{"number" => number}) do
-    permanent_redirect(conn, "https://oregon.public.law/statutes/ors_volume_#{number}")
+    permanent_redirect(conn, to: "https://oregon.public.law/statutes/ors_volume_#{number}")
   end
 
+  @spec redirect_ors_chapter(Plug.Conn.t(), any) :: Plug.Conn.t()
+  def redirect_ors_chapter(conn, %{"number" => number}) do
+    permanent_redirect(conn, to: "https://oregon.public.law/statutes/ors_chapter_#{number}")
+  end
 
   #
   # weblaws.org Redrects

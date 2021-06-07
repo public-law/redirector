@@ -19,6 +19,13 @@ defmodule RedirectorWeb.RedirectControllerTest do
     assert get_resp_header(conn, "location") == ["https://oregon.public.law/statutes/ors_volume_6"]
   end
 
+  test "ORS Chapter request", %{conn: conn} do
+    conn = get(conn, "/ors/chapter/6")
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == ["https://oregon.public.law/statutes/ors_chapter_6"]
+  end
+
 
   #
   # Weblaws.org Redirects
