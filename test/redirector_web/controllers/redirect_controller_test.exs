@@ -5,7 +5,14 @@ defmodule RedirectorWeb.RedirectControllerTest do
   # ORS Redirects
   #
 
-  test "ORS homepage goes to the right place", %{conn: conn} do
+  test "ORS home page goes to the right place", %{conn: conn} do
+    conn = get(conn, "http://www.oregonlaws.org/")
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == ["https://oregon.public.law"]
+  end
+
+  test "ORS statutes goes to the right place", %{conn: conn} do
     conn = get(conn, "/oregon_revised_statutes")
 
     assert conn.status == 301
@@ -39,7 +46,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
   #
 
   test "redirect_root/2 sends to www.public.law", %{conn: conn} do
-    conn = get(conn, "/")
+    conn = get(conn, "http://www.weblaws.org/")
 
     assert conn.status == 301
     assert get_resp_header(conn, "location") == [

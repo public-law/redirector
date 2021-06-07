@@ -14,8 +14,8 @@ defmodule RedirectorWeb.RedirectController do
   # oregonlaws.org Redirects
   #
 
-  @spec redirect_ors_root(Plug.Conn.t(), any) :: Plug.Conn.t()
-  def redirect_ors_root(conn, _params) do
+  @spec redirect_ors_statutes(Plug.Conn.t(), any) :: Plug.Conn.t()
+  def redirect_ors_statutes(conn, _params) do
     permanent_redirect(conn, to: "#{@opl_url}/statutes")
   end
 
@@ -36,13 +36,26 @@ defmodule RedirectorWeb.RedirectController do
 
 
   #
-  # weblaws.org Redrects
+  # Root path Redrects
   #
 
   @spec redirect_root(Plug.Conn.t(), any) :: Plug.Conn.t()
+  def redirect_root(conn = %{host: "www.oregonlaws.org"}, _params) do
+    permanent_redirect(conn, to: "https://oregon.public.law")
+  end
+
+  def redirect_root(conn = %{host: "oregonlaws.org"}, _params) do
+    permanent_redirect(conn, to: "https://oregon.public.law")
+  end
+
   def redirect_root(conn, _params) do
     permanent_redirect(conn, to: "https://www.public.law")
   end
+
+
+  #
+  # Weblaws.org Redirects
+  #
 
   @spec redirect_state(Plug.Conn.t(), map) :: Plug.Conn.t()
   def redirect_state(conn, %{"segments" => [state | tail]}) do
