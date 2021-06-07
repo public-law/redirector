@@ -7,6 +7,11 @@ defmodule RedirectorWeb.RedirectController do
     "texas" => "statutes"
   }
 
+
+  def redirect_ors_root(conn, _params) do
+    permanent_redirect(conn, to: "https://oregon.public.law/statutes")
+  end
+
   def redirect_root(conn, _params) do
     permanent_redirect(conn, to: "https://www.public.law")
   end

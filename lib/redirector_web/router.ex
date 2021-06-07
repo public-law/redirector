@@ -19,6 +19,7 @@ defmodule RedirectorWeb.Router do
   scope "/", RedirectorWeb do
     pipe_through(:redirects)
 
+    get("/oregon_revised_statutes", RedirectController, :redirect_ors_root)
     get("/", RedirectController, :redirect_root)
     get("/states/*segments", RedirectController, :redirect_old_format)
     get("/*segments", RedirectController, :redirect_state)
