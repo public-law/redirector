@@ -20,7 +20,8 @@ defmodule RedirectorWeb.Router do
     pipe_through(:redirects)
 
     get("/oregon_revised_statutes", RedirectController, :redirect_ors_root)
-    get("/ors/volume/*segments", RedirectController, :redirect_ors_volume)
+    get("/ors/volume/:number", RedirectController, :redirect_ors_volume)
+
     get("/", RedirectController, :redirect_root)
     get("/states/*segments", RedirectController, :redirect_old_format)
     get("/*segments", RedirectController, :redirect_state)

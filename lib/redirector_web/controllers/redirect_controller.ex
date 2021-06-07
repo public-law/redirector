@@ -8,9 +8,22 @@ defmodule RedirectorWeb.RedirectController do
   }
 
 
+  #
+  # oregonlaws.org Redirects
+  #
+
   def redirect_ors_root(conn, _params) do
     permanent_redirect(conn, to: "https://oregon.public.law/statutes")
   end
+
+  def redirect_ors_volume(conn, %{"number" => number}) do
+    permanent_redirect(conn, "https://oregon.public.law/statutes/ors_volume_#{number}")
+  end
+
+
+  #
+  # weblaws.org Redrects
+  #
 
   def redirect_root(conn, _params) do
     permanent_redirect(conn, to: "https://www.public.law")
