@@ -7,6 +7,8 @@ defmodule RedirectorWeb.RedirectController do
     "texas" => "statutes"
   }
 
+  @opl_url "https://oregon.public.law"
+
 
   #
   # oregonlaws.org Redirects
@@ -14,22 +16,22 @@ defmodule RedirectorWeb.RedirectController do
 
   @spec redirect_ors_root(Plug.Conn.t(), any) :: Plug.Conn.t()
   def redirect_ors_root(conn, _params) do
-    permanent_redirect(conn, to: "https://oregon.public.law/statutes")
+    permanent_redirect(conn, to: "#{@opl_url}/statutes")
   end
 
   @spec redirect_ors_volume(Plug.Conn.t(), map) :: Plug.Conn.t()
   def redirect_ors_volume(conn, %{"number" => number}) do
-    permanent_redirect(conn, to: "https://oregon.public.law/statutes/ors_volume_#{number}")
+    permanent_redirect(conn, to: "#{@opl_url}/statutes/ors_volume_#{number}")
   end
 
   @spec redirect_ors_chapter(Plug.Conn.t(), map) :: Plug.Conn.t()
   def redirect_ors_chapter(conn, %{"number" => number}) do
-    permanent_redirect(conn, to: "https://oregon.public.law/statutes/ors_chapter_#{number}")
+    permanent_redirect(conn, to: "#{@opl_url}/statutes/ors_chapter_#{number}")
   end
 
   @spec redirect_ors_section(Plug.Conn.t(), map) :: Plug.Conn.t()
   def redirect_ors_section(conn, %{"number" => number}) do
-    permanent_redirect(conn, to: "https://oregon.public.law/statutes/ors_#{number}")
+    permanent_redirect(conn, to: "#{@opl_url}/statutes/ors_#{number}")
   end
 
 
