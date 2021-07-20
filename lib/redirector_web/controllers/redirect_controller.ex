@@ -43,6 +43,11 @@ defmodule RedirectorWeb.RedirectController do
     permanent_redirect(conn, to: "#{@opl_url}/statutes/ors_#{number}")
   end
 
+  @spec temp_redirect_ors_section(Plug.Conn.t(), map) :: Plug.Conn.t()
+  def temp_redirect_ors_section(conn, %{"number" => number}) do
+    temporary_redirect(conn, to: "#{@opl_url}/statutes/ors_#{number}")
+  end
+
   #
   # Root path Redrects
   #
@@ -98,6 +103,13 @@ defmodule RedirectorWeb.RedirectController do
   defp permanent_redirect(conn, to: url) do
     conn
     |> put_status(301)
+    |> redirect(external: url)
+    |> halt
+  end
+
+  defp temporary_redirect(conn, to: url) do
+    conn
+    |> put_status(307)
     |> redirect(external: url)
     |> halt
   end
