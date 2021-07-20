@@ -131,19 +131,16 @@ defmodule RedirectorWeb.RedirectController do
     conn
     |> put_status(301)
     |> redirect(external: url)
-    |> halt
   end
 
   defp temporary_redirect(conn, to: url) do
     conn
     |> put_status(307)
     |> redirect(external: url)
-    |> halt
   end
 
   defp send_status(conn, status) do
     conn
     |> put_status(status)
-    |> halt
   end
 end
