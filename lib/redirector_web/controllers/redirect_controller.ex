@@ -68,21 +68,16 @@ defmodule RedirectorWeb.RedirectController do
   #
 
   @spec redirect_state(Plug.Conn.t(), map) :: Plug.Conn.t()
-  def redirect_state(conn, %{"segments" => [state = "california" | tail]}) do
-    do_state_redirect(conn, state, tail)
-  end
+  def redirect_state(conn, %{"segments" => [state = "california" | tail]}),
+    do: do_state_redirect(conn, state, tail)
 
-  def redirect_state(conn, %{"segments" => [state = "new_york" | tail]}) do
-    do_state_redirect(conn, state, tail)
-  end
+  def redirect_state(conn, %{"segments" => [state = "new_york" | tail]}),
+    do: do_state_redirect(conn, state, tail)
 
-  def redirect_state(conn, %{"segments" => [state = "texas" | tail]}) do
-    do_state_redirect(conn, state, tail)
-  end
+  def redirect_state(conn, %{"segments" => [state = "texas" | tail]}),
+    do: do_state_redirect(conn, state, tail)
 
-  def redirect_state(conn, %{"segments" => [_unknown_state | _tail]}) do
-    send_status(conn, 404)
-  end
+  def redirect_state(conn, %{"segments" => [_unknown_state | _tail]}), do: send_status(conn, 404)
 
   defp do_state_redirect(conn, state, segments) do
     domain = translate_state(state)
