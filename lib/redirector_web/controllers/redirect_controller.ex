@@ -14,9 +14,7 @@ defmodule RedirectorWeb.RedirectController do
   #
 
   def bad_request(conn, _params) do
-    conn
-    |> put_status(400)
-    |> halt
+    send_status(conn, 400)
   end
 
   #
@@ -70,9 +68,20 @@ defmodule RedirectorWeb.RedirectController do
   #
 
   @spec redirect_state(Plug.Conn.t(), map) :: Plug.Conn.t()
-  def redirect_state(conn, %{"segments" => [state | tail]}) do
+  def redirect_state(conn, %{"segments" => [state = "california" | tail]}),
+    do: do_state_redirect(conn, state, tail)
+
+  def redirect_state(conn, %{"segments" => [state = "new_york" | tail]}),
+    do: do_state_redirect(conn, state, tail)
+
+  def redirect_state(conn, %{"segments" => [state = "texas" | tail]}),
+    do: do_state_redirect(conn, state, tail)
+
+  def redirect_state(conn, %{"segments" => [_unknown_state | _tail]}), do: send_status(conn, 404)
+
+  defp do_state_redirect(conn, state, segments) do
     domain = translate_state(state)
-    path = Enum.join(tail, "/")
+    path = Enum.join(segments, "/")
 
     permanent_redirect(conn, to: "https://#{domain}.public.law/#{path}")
   end
@@ -111,6 +120,12 @@ defmodule RedirectorWeb.RedirectController do
     conn
     |> put_status(307)
     |> redirect(external: url)
+    |> halt
+  end
+
+  defp send_status(conn, status) do
+    conn
+    |> put_status(status)
     |> halt
   end
 end

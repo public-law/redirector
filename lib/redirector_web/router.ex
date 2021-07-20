@@ -36,6 +36,6 @@ defmodule RedirectorWeb.Router do
 
     # Bad requests
 
-    post("/", RedirectController, :bad_request)
+    post("/*ignored", RedirectController, :bad_request)
   end
 end

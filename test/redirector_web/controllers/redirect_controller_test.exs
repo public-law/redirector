@@ -2,10 +2,31 @@ defmodule RedirectorWeb.RedirectControllerTest do
   use RedirectorWeb.ConnCase
 
   #
+  # Unknown Paths
+  #
+  test "Unknown path is 404 - page", %{conn: conn} do
+    conn = get(conn, "/snack?snack=11&search=registration")
+
+    assert conn.status == 404
+  end
+
+  #
   # Bad requests
   #
-  test "POST requests are 400", %{conn: conn} do
+  test "POST requests to root (1) are 400", %{conn: conn} do
+    conn = post(conn, "")
+
+    assert conn.status == 400
+  end
+
+  test "POST requests to root (2) are 400", %{conn: conn} do
     conn = post(conn, "/")
+
+    assert conn.status == 400
+  end
+
+  test "POST requests to a path are 400", %{conn: conn} do
+    conn = post(conn, "/1")
 
     assert conn.status == 400
   end
