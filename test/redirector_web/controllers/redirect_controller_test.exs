@@ -12,6 +12,14 @@ defmodule RedirectorWeb.RedirectControllerTest do
     assert get_resp_header(conn, "location") == [expected]    
   end
 
+  test "An oregonlaws search without page", %{conn: conn} do
+    conn = get(conn, "/page?search=probate")
+    expected = "https://oregon.public.law/search?term=probate"
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == [expected]    
+  end
+
   test "An oregonlaws search with object filter", %{conn: conn} do
     conn = get(conn, "/page?object_filter=36&page=15&search=access")
     expected = "https://oregon.public.law/search?page=15&term=access"

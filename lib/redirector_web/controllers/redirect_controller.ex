@@ -59,6 +59,11 @@ defmodule RedirectorWeb.RedirectController do
     permanent_redirect(conn, to: "https://oregon.public.law/search?#{query}")
   end
 
+  def redirect_ors_search(conn, %{"search" => term}) do
+    query = URI.encode_query(%{term: term})
+    permanent_redirect(conn, to: "https://oregon.public.law/search?#{query}")
+  end
+
   #
   # Root path Redrects
   #
