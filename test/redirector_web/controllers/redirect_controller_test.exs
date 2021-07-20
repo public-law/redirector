@@ -88,7 +88,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
   test "ORS Section with year", %{conn: conn} do
     conn = get(conn, "/ors/2007/497.040")
 
-    assert(conn.status == 307)
+    assert(conn.status == 301)
     assert get_resp_header(conn, "location") == ["https://oregon.public.law/statutes/ors_497.040"]
   end
 
