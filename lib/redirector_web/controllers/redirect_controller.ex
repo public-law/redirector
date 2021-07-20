@@ -17,6 +17,10 @@ defmodule RedirectorWeb.RedirectController do
     send_status(conn, 400)
   end
 
+  def blog_feed(conn, _params) do
+    permanent_redirect conn, to: "https://blog.public.law/feed/"
+  end
+
   #
   # oregonlaws.org Redirects
   #
@@ -44,6 +48,15 @@ defmodule RedirectorWeb.RedirectController do
   @spec temp_redirect_ors_section(Plug.Conn.t(), map) :: Plug.Conn.t()
   def temp_redirect_ors_section(conn, %{"number" => number}) do
     temporary_redirect(conn, to: "#{@opl_url}/statutes/ors_#{number}")
+  end
+
+  def redirect_robots(conn, _) do
+    permanent_redirect(conn, to: "https://www.public.law/robots.txt")
+  end
+
+  def redirect_ors_search(conn, %{"search" => term, "page" => page}) do
+    query = URI.encode_query(%{page: page, term: term})
+    permanent_redirect(conn, to: "https://oregon.public.law/search?#{query}")
   end
 
   #

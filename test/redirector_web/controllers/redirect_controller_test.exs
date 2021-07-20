@@ -2,6 +2,45 @@ defmodule RedirectorWeb.RedirectControllerTest do
   use RedirectorWeb.ConnCase
 
   #
+  # Searches
+  #
+  test "An oregonlaws search", %{conn: conn} do
+    conn = get(conn, "/page?page=24&search=filing+fee")
+    expected = "https://oregon.public.law/search?page=24&term=filing+fee"
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == [expected]    
+  end
+
+  test "An oregonlaws search with object filter", %{conn: conn} do
+    conn = get(conn, "/page?object_filter=36&page=15&search=access")
+    expected = "https://oregon.public.law/search?page=15&term=access"
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == [expected]    
+  end
+
+  #
+  # General
+  #
+
+  
+  test "Blog feed goes to new blog location", %{conn: conn} do
+    conn = get(conn, "/blog/feed/")
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == ["https://blog.public.law/feed/"]
+  end
+
+
+  test "A simple page redirect", %{conn: conn} do
+    conn = get(conn, "/robots.txt")
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == ["https://www.public.law/robots.txt"]
+  end
+
+  #
   # Unknown Paths
   #
   test "Unknown path is 404 - page", %{conn: conn} do
@@ -81,7 +120,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
   test "ORS Section with year", %{conn: conn} do
     conn = get(conn, "/ors/2007/497.040")
 
-    assert(conn.status == 307)
+    assert(conn.status == 301)
     assert get_resp_header(conn, "location") == ["https://oregon.public.law/statutes/ors_497.040"]
   end
 
