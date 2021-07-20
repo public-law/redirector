@@ -14,9 +14,7 @@ defmodule RedirectorWeb.RedirectController do
   #
 
   def bad_request(conn, _params) do
-    conn
-    |> put_status(400)
-    |> halt
+    send_status(conn, 400)
   end
 
   #
@@ -83,9 +81,7 @@ defmodule RedirectorWeb.RedirectController do
   end
 
   def redirect_state(conn, %{"segments" => [_unknown_state | _tail]}) do
-    conn
-    |> put_status(404)
-    |> halt
+    send_status(conn, 404)
   end
 
   defp do_state_redirect(conn, state, segments) do
@@ -129,6 +125,12 @@ defmodule RedirectorWeb.RedirectController do
     conn
     |> put_status(307)
     |> redirect(external: url)
+    |> halt
+  end
+
+  defp send_status(conn, status) do
+    conn
+    |> put_status(status)
     |> halt
   end
 end
