@@ -16,10 +16,12 @@ defmodule RedirectorWeb.Router do
     get("/debug", ApiController, :debug)
   end
 
+
   scope "/", RedirectorWeb do
     pipe_through(:redirects)
 
     get "/robots.txt", RedirectController, :redirect_robots
+    get "/blog/feed/", RedirectController, :blog_feed
 
     get("/", RedirectController, :redirect_root)
 

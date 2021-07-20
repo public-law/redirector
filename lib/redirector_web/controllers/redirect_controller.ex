@@ -17,6 +17,10 @@ defmodule RedirectorWeb.RedirectController do
     send_status(conn, 400)
   end
 
+  def blog_feed(conn, _params) do
+    permanent_redirect conn, to: "https://blog.public.law/feed/"
+  end
+
   #
   # oregonlaws.org Redirects
   #
