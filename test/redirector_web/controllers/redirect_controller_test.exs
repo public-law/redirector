@@ -115,13 +115,18 @@ defmodule RedirectorWeb.RedirectControllerTest do
     assert get_resp_header(conn, "location") == ["https://oregon.public.law/statutes/ors_123.456"]
   end
 
-  # Temporarily redirect older ORS editions until we
-  # add them to public.law.
   test "ORS Section with year", %{conn: conn} do
     conn = get(conn, "/ors/2007/497.040")
 
     assert(conn.status == 301)
     assert get_resp_header(conn, "location") == ["https://oregon.public.law/statutes/ors_497.040"]
+  end
+
+  test "ORS Chapter with year", %{conn: conn} do
+    conn = get(conn, "/ors/2013/chapter/777")
+
+    assert(conn.status == 301)
+    assert get_resp_header(conn, "location") == ["https://oregon.public.law/statutes/ors_chapter_777"]
   end
 
   #

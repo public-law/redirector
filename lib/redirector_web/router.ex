@@ -32,7 +32,9 @@ defmodule RedirectorWeb.Router do
     get("/ors/volume/:number", RedirectController, :redirect_ors_volume)
     get("/ors/chapter/:number", RedirectController, :redirect_ors_chapter)
     get("/ors/:number", RedirectController, :redirect_ors_section)
+    # With year
     get("/ors/:year/:number", RedirectController, :redirect_ors_section)
+    get("/ors/:year/chapter/:number", RedirectController, :redirect_ors_chapter)
 
     # weblaws.org
 
