@@ -1,6 +1,13 @@
 defmodule RedirectorWeb.RedirectControllerTest do
   use RedirectorWeb.ConnCase
 
+  test "A simple page redirect", %{conn: conn} do
+    conn = get(conn, "/robots.txt")
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == ["https://www.public.law/robots.txt"]
+  end
+
   #
   # Unknown Paths
   #

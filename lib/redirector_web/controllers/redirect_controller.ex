@@ -46,6 +46,10 @@ defmodule RedirectorWeb.RedirectController do
     temporary_redirect(conn, to: "#{@opl_url}/statutes/ors_#{number}")
   end
 
+  def redirect_robots(conn, _) do
+    permanent_redirect(conn, to: "https://www.public.law/robots.txt")
+  end
+
   #
   # Root path Redrects
   #
