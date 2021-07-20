@@ -57,6 +57,11 @@ defmodule RedirectorWeb.RedirectControllerTest do
     assert conn.status == 404
   end
 
+  test "Unknown path is 404 - snacks", %{conn: conn} do
+    conn = get(conn, "/snacks")
+
+    assert conn.status == 404
+  end
   #
   # Bad requests
   #
