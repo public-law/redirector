@@ -9,6 +9,15 @@ defmodule RedirectorWeb.RedirectController do
 
   @opl_url "https://oregon.public.law"
 
+  #
+  # General requests
+  #
+
+  def bad_request(conn, _params) do
+    conn
+    |> put_status(400)
+    |> halt
+  end
 
   #
   # oregonlaws.org Redirects
@@ -34,7 +43,6 @@ defmodule RedirectorWeb.RedirectController do
     permanent_redirect(conn, to: "#{@opl_url}/statutes/ors_#{number}")
   end
 
-
   #
   # Root path Redrects
   #
@@ -51,7 +59,6 @@ defmodule RedirectorWeb.RedirectController do
   def redirect_root(conn, _params) do
     permanent_redirect(conn, to: "https://www.public.law")
   end
-
 
   #
   # Weblaws.org Redirects

@@ -32,5 +32,9 @@ defmodule RedirectorWeb.Router do
 
     get("/states/*segments", RedirectController, :redirect_old_format)
     get("/*segments", RedirectController, :redirect_state)
+
+    # Bad requests
+
+    post("/", RedirectController, :bad_request)
   end
 end

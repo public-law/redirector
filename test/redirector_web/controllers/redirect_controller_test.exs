@@ -2,6 +2,15 @@ defmodule RedirectorWeb.RedirectControllerTest do
   use RedirectorWeb.ConnCase
 
   #
+  # Bad requests
+  #
+  test "POST requests are 400", %{conn: conn} do
+    conn = post(conn, "/")
+
+    assert conn.status == 400
+  end
+
+  #
   # ORS Redirects
   #
 
@@ -23,14 +32,20 @@ defmodule RedirectorWeb.RedirectControllerTest do
     conn = get(conn, "/ors/volume/6")
 
     assert conn.status == 301
-    assert get_resp_header(conn, "location") == ["https://oregon.public.law/statutes/ors_volume_6"]
+
+    assert get_resp_header(conn, "location") == [
+             "https://oregon.public.law/statutes/ors_volume_6"
+           ]
   end
 
   test "ORS Chapter request", %{conn: conn} do
     conn = get(conn, "/ors/chapter/6")
 
     assert conn.status == 301
-    assert get_resp_header(conn, "location") == ["https://oregon.public.law/statutes/ors_chapter_6"]
+
+    assert get_resp_header(conn, "location") == [
+             "https://oregon.public.law/statutes/ors_chapter_6"
+           ]
   end
 
   test "ORS Section request", %{conn: conn} do
@@ -40,7 +55,6 @@ defmodule RedirectorWeb.RedirectControllerTest do
     assert get_resp_header(conn, "location") == ["https://oregon.public.law/statutes/ors_123.456"]
   end
 
-
   #
   # Weblaws.org Redirects
   #
@@ -49,6 +63,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
     conn = get(conn, "http://www.weblaws.org/")
 
     assert conn.status == 301
+
     assert get_resp_header(conn, "location") == [
              "https://www.public.law"
            ]
@@ -58,6 +73,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
     conn = get(conn, "/texas/statutes/tex._election_code")
 
     assert conn.status == 301
+
     assert get_resp_header(conn, "location") == [
              "https://texas.public.law/statutes/tex._election_code"
            ]
@@ -67,6 +83,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
     conn = get(conn, "/new_york/laws/n.y._multiple_dwelling_law_section_2")
 
     assert conn.status == 301
+
     assert get_resp_header(conn, "location") == [
              "https://newyork.public.law/laws/n.y._multiple_dwelling_law_section_2"
            ]
@@ -76,6 +93,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
     conn = get(conn, "/california/codes/ca_sts_and_high_code_div_1_chap_1.5")
 
     assert conn.status == 301
+
     assert get_resp_header(conn, "location") == [
              "https://california.public.law/codes/ca_sts_and_high_code_div_1_chap_1.5"
            ]
@@ -85,6 +103,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
     conn = get(conn, "/states/california/statutes/ca_penal_section_459")
 
     assert conn.status == 301
+
     assert get_resp_header(conn, "location") == [
              "https://california.public.law/codes/ca_penal_code_section_459"
            ]
