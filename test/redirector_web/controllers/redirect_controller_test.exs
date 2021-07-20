@@ -1,6 +1,22 @@
 defmodule RedirectorWeb.RedirectControllerTest do
   use RedirectorWeb.ConnCase
 
+  #
+  # Searches
+  #
+  test "An oregonlaws search", %{conn: conn} do
+    conn = get(conn, "/page?page=24&search=filing+fee")
+    expected = "https://oregon.public.law/search?page=24&term=filing+fee"
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == [expected]    
+  end
+
+
+  #
+  # General
+  #
+
   test "A simple page redirect", %{conn: conn} do
     conn = get(conn, "/robots.txt")
 
