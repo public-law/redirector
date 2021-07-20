@@ -27,10 +27,15 @@ defmodule RedirectorWeb.Router do
     get("/ors/volume/:number", RedirectController, :redirect_ors_volume)
     get("/ors/chapter/:number", RedirectController, :redirect_ors_chapter)
     get("/ors/:number", RedirectController, :redirect_ors_section)
+    get("/ors/:year/:number", RedirectController, :temp_redirect_ors_section)
 
     # weblaws.org
 
     get("/states/*segments", RedirectController, :redirect_old_format)
     get("/*segments", RedirectController, :redirect_state)
+
+    # Bad requests
+
+    post("/", RedirectController, :bad_request)
   end
 end
