@@ -71,30 +71,28 @@ defmodule RedirectorWeb.RedirectController do
 
   @spec redirect_state(Plug.Conn.t(), map) :: Plug.Conn.t()
   def redirect_state(conn, %{"segments" => [state = "california" | tail]}) do
-    domain = translate_state(state)
-    path = Enum.join(tail, "/")
-
-    permanent_redirect(conn, to: "https://#{domain}.public.law/#{path}")
+    do_state_redirect(conn, state, tail)
   end
 
   def redirect_state(conn, %{"segments" => [state = "new_york" | tail]}) do
-    domain = translate_state(state)
-    path = Enum.join(tail, "/")
-
-    permanent_redirect(conn, to: "https://#{domain}.public.law/#{path}")
+    do_state_redirect(conn, state, tail)
   end
 
   def redirect_state(conn, %{"segments" => [state = "texas" | tail]}) do
-    domain = translate_state(state)
-    path = Enum.join(tail, "/")
-
-    permanent_redirect(conn, to: "https://#{domain}.public.law/#{path}")
+    do_state_redirect(conn, state, tail)
   end
 
-  def redirect_state(conn, %{"segments" => [_state | _tail]}) do
+  def redirect_state(conn, %{"segments" => [_unknown_state | _tail]}) do
     conn
     |> put_status(404)
     |> halt
+  end
+
+  defp do_state_redirect(conn, state, segments) do
+    domain = translate_state(state)
+    path = Enum.join(segments, "/")
+
+    permanent_redirect(conn, to: "https://#{domain}.public.law/#{path}")
   end
 
   @spec redirect_old_format(Plug.Conn.t(), map) :: Plug.Conn.t()
