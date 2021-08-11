@@ -14,7 +14,9 @@ defmodule RedirectorWeb.RedirectController do
   #
 
   def bad_request(conn, _params) do
-    send_status(conn, 400)
+    conn
+    |> put_status(400)
+    |> text("Error")
   end
 
   def blog_feed(conn, _params) do
@@ -146,10 +148,5 @@ defmodule RedirectorWeb.RedirectController do
     conn
     |> put_status(307)
     |> redirect(external: url)
-  end
-
-  defp send_status(conn, status) do
-    conn
-    |> put_status(status)
   end
 end
