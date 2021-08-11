@@ -20,9 +20,10 @@ defmodule RedirectorWeb.Router do
   scope "/", RedirectorWeb do
     pipe_through(:redirects)
 
+    # Specific requests
+
     get "/robots.txt", RedirectController, :redirect_robots
     get "/blog/feed/", RedirectController, :blog_feed
-
     get("/", RedirectController, :redirect_root)
 
     # oregonlaws.org
