@@ -20,9 +20,13 @@ defmodule RedirectorWeb.Router do
   scope "/", RedirectorWeb do
     pipe_through(:redirects)
 
+    # Specific requests
+
+    get "/users/sign_in", RedirectController, :redirect_sign_in
+    get "/ads.txt", RedirectController, :redirect_ads_txt
+    get "/sitemap.xml.gz", RedirectController, :redirect_sitemap
     get "/robots.txt", RedirectController, :redirect_robots
     get "/blog/feed/", RedirectController, :blog_feed
-
     get("/", RedirectController, :redirect_root)
 
     # oregonlaws.org
@@ -31,6 +35,7 @@ defmodule RedirectorWeb.Router do
     get("/oregon_revised_statutes", RedirectController, :redirect_ors_statutes)
     get("/ors/volume/:number", RedirectController, :redirect_ors_volume)
     get("/ors/chapter/:number", RedirectController, :redirect_ors_chapter)
+    get("/ors_chapters/:number", RedirectController, :redirect_ors_chapter)
     get("/ors/:number", RedirectController, :redirect_ors_section)
     # With year
     get("/ors/:year/:number", RedirectController, :redirect_ors_section)

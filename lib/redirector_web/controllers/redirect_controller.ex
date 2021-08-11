@@ -50,9 +50,17 @@ defmodule RedirectorWeb.RedirectController do
     temporary_redirect(conn, to: "#{@opl_url}/statutes/ors_#{number}")
   end
 
-  def redirect_robots(conn, _) do
+  def redirect_robots(conn, _), do:
     permanent_redirect(conn, to: "https://www.public.law/robots.txt")
-  end
+
+  def redirect_ads_txt(conn, _), do:
+    permanent_redirect(conn, to: "https://oregon.public.law/ads.txt")
+
+  def redirect_sign_in(conn, _), do:
+    permanent_redirect(conn, to: "https://oregon.public.law/users/sign_in")
+
+    def redirect_sitemap(conn, _), do:
+    permanent_redirect(conn, to: "https://oregon.public.law/sitemaps/sitemap.xml.gz")
 
   def redirect_ors_search(conn, %{"search" => term, "page" => page}) do
     query = URI.encode_query(%{page: page, term: term})
