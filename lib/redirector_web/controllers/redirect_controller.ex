@@ -54,6 +54,10 @@ defmodule RedirectorWeb.RedirectController do
     permanent_redirect(conn, to: "https://www.public.law/robots.txt")
   end
 
+  def redirect_ads_txt(conn, _) do
+    permanent_redirect(conn, to: "https://oregon.public.law/ads.txt")
+  end
+
   def redirect_ors_search(conn, %{"search" => term, "page" => page}) do
     query = URI.encode_query(%{page: page, term: term})
     permanent_redirect(conn, to: "https://oregon.public.law/search?#{query}")

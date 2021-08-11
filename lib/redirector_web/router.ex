@@ -22,6 +22,7 @@ defmodule RedirectorWeb.Router do
 
     # Specific requests
 
+    get "/ads.txt", RedirectController, :redirect_ads_txt
     get "/robots.txt", RedirectController, :redirect_robots
     get "/blog/feed/", RedirectController, :blog_feed
     get("/", RedirectController, :redirect_root)
