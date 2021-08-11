@@ -33,6 +33,14 @@ defmodule RedirectorWeb.RedirectControllerTest do
   # General
   #
 
+  test "Catch-all for GET", %{conn: conn} do
+    conn = get(conn, "/statutes/ors_316.003")
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == ["https://oregon.public.law/statutes/ors_316.003"]
+  end
+  
+
   test "Sign-in goes to the new site", %{conn: conn} do
     conn = get(conn, "/users/sign_in")
 
@@ -68,21 +76,6 @@ defmodule RedirectorWeb.RedirectControllerTest do
 
     assert conn.status == 301
     assert get_resp_header(conn, "location") == ["https://www.public.law/robots.txt"]
-  end
-
-  #
-  # Unknown Paths
-  #
-  test "Unknown path is 404 - page", %{conn: conn} do
-    conn = get(conn, "/snack?snack=11&search=registration")
-
-    assert conn.status == 404
-  end
-
-  test "Unknown path is 404 - snacks", %{conn: conn} do
-    conn = get(conn, "/snacks")
-
-    assert conn.status == 404
   end
 
   #

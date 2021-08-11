@@ -103,7 +103,8 @@ defmodule RedirectorWeb.RedirectController do
   def redirect_state(conn, %{"segments" => [state = "texas" | tail]}),
     do: do_state_redirect(conn, state, tail)
 
-  def redirect_state(conn, _), do: send_status(conn, 404)
+  def redirect_state(conn, %{"segments" => segments}), 
+    do: permanent_redirect(conn, to: "https://oregon.public.law/#{Enum.join(segments, "/")}")
 
   defp do_state_redirect(conn, state, segments) do
     domain = translate_state(state)
