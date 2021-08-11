@@ -48,6 +48,13 @@ defmodule RedirectorWeb.RedirectControllerTest do
     assert get_resp_header(conn, "location") == ["https://oregon.public.law/ads.txt"]
   end
   
+  test "Sitemap goes to new site", %{conn: conn} do
+    conn = get(conn, "/sitemap.xml.gz")
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == ["https://oregon.public.law/sitemaps/sitemap.xml.gz"]
+  end
+
   test "Blog feed goes to new blog location", %{conn: conn} do
     conn = get(conn, "/blog/feed/")
 
