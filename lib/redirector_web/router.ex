@@ -34,6 +34,7 @@ defmodule RedirectorWeb.Router do
     get("/oregon_revised_statutes", RedirectController, :redirect_ors_statutes)
     get("/ors/volume/:number", RedirectController, :redirect_ors_volume)
     get("/ors/chapter/:number", RedirectController, :redirect_ors_chapter)
+    get("/ors_chapters/:number", RedirectController, :redirect_ors_chapter)
     get("/ors/:number", RedirectController, :redirect_ors_section)
     # With year
     get("/ors/:year/:number", RedirectController, :redirect_ors_section)
