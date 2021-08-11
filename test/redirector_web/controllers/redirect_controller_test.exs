@@ -33,6 +33,14 @@ defmodule RedirectorWeb.RedirectControllerTest do
   # General
   #
 
+  test "Sign-in goes to the new site", %{conn: conn} do
+    conn = get(conn, "/users/sign_in")
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == ["https://oregon.public.law/users/sign_in"]
+  end
+  
+
   test "ads.txt goes to new site", %{conn: conn} do
     conn = get(conn, "/ads.txt")
 
