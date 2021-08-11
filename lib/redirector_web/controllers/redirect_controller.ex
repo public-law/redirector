@@ -14,7 +14,9 @@ defmodule RedirectorWeb.RedirectController do
   #
 
   def bad_request(conn, _params) do
-    send_status(conn, 400)
+    conn
+    |> put_status(400)
+    |> text("Error")
   end
 
   def blog_feed(conn, _params) do
@@ -103,7 +105,11 @@ defmodule RedirectorWeb.RedirectController do
   def redirect_state(conn, %{"segments" => [state = "texas" | tail]}),
     do: do_state_redirect(conn, state, tail)
 
-  def redirect_state(conn, _), do: send_status(conn, 404)
+  def redirect_state(conn, _) do 
+    conn
+    |> put_status(404)
+    |> text("Error")
+  end
 
   defp do_state_redirect(conn, state, segments) do
     domain = translate_state(state)
@@ -145,10 +151,5 @@ defmodule RedirectorWeb.RedirectController do
     conn
     |> put_status(307)
     |> redirect(external: url)
-  end
-
-  defp send_status(conn, status) do
-    conn
-    |> put_status(status)
   end
 end
