@@ -59,6 +59,9 @@ defmodule RedirectorWeb.RedirectController do
   def redirect_sign_in(conn, _), do:
     permanent_redirect(conn, to: "https://oregon.public.law/users/sign_in")
 
+    def redirect_sitemap(conn, _), do:
+    permanent_redirect(conn, to: "https://oregon.public.law/sitemaps/sitemap.xml.gz")
+
   def redirect_ors_search(conn, %{"search" => term, "page" => page}) do
     query = URI.encode_query(%{page: page, term: term})
     permanent_redirect(conn, to: "https://oregon.public.law/search?#{query}")
