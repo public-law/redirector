@@ -77,6 +77,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
 
     assert conn.status == 404
   end
+
   #
   # Bad requests
   #
@@ -133,6 +134,16 @@ defmodule RedirectorWeb.RedirectControllerTest do
 
     assert get_resp_header(conn, "location") == [
              "https://oregon.public.law/statutes/ors_chapter_6"
+           ]
+  end
+
+  test "Alternate ORS Chapter request", %{conn: conn} do
+    conn = get(conn, "/ors_chapters/352")
+
+    assert conn.status == 301
+
+    assert get_resp_header(conn, "location") == [
+             "https://oregon.public.law/statutes/ors_chapter_352"
            ]
   end
 
