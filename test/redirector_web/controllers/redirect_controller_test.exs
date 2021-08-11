@@ -33,6 +33,37 @@ defmodule RedirectorWeb.RedirectControllerTest do
   # General
   #
 
+  test "Catch-all for GET", %{conn: conn} do
+    conn = get(conn, "/statutes/ors_316.003")
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == ["https://oregon.public.law/statutes/ors_316.003"]
+  end
+  
+  test "Catch-all works with weird stuff", %{conn: conn} do
+    conn = get(conn, "/1/2/3/4/5.txt")
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == ["https://oregon.public.law/1/2/3/4/5.txt"]
+  end
+
+  test "Catch-all works with just one word", %{conn: conn} do
+    conn = get(conn, "/robb")
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == ["https://oregon.public.law/robb"]
+  end
+  
+  test "Catch-all works with older volume path", %{conn: conn} do
+    conn = get(conn, "/ors/2011/volume/14")
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == ["https://oregon.public.law/ors/2011/volume/14"]
+  end
+  
+
+
+
   test "Sign-in goes to the new site", %{conn: conn} do
     conn = get(conn, "/users/sign_in")
 
@@ -68,21 +99,6 @@ defmodule RedirectorWeb.RedirectControllerTest do
 
     assert conn.status == 301
     assert get_resp_header(conn, "location") == ["https://www.public.law/robots.txt"]
-  end
-
-  #
-  # Unknown Paths
-  #
-  test "Unknown path is 404 - page", %{conn: conn} do
-    conn = get(conn, "/snack?snack=11&search=registration")
-
-    assert conn.status == 404
-  end
-
-  test "Unknown path is 404 - snacks", %{conn: conn} do
-    conn = get(conn, "/snacks")
-
-    assert conn.status == 404
   end
 
   #
