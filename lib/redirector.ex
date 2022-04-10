@@ -7,6 +7,7 @@ defmodule Redirector do
   if it comes from the database, an external API or others.
   """
 
+  @spec preferred_visitor?([{:domain, binary}, ...]) :: boolean
   def preferred_visitor?(domain: domain) when is_bitstring(domain) do
     String.ends_with?(domain, [
       ".edu",

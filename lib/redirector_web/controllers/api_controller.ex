@@ -1,3 +1,5 @@
+require Logger
+
 defmodule RedirectorWeb.ApiController do
   use RedirectorWeb, :controller
   import Redirector
@@ -25,6 +27,8 @@ defmodule RedirectorWeb.ApiController do
         "remote_domain" => remote_domain,
         "is_preferred_visitor" => answer
       })
+
+    Logger.info(fn -> "#{json_content}" end)
 
     conn
     |> put_resp_content_type("text/json")
