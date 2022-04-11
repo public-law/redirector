@@ -35,11 +35,13 @@ defmodule Redirector.Mixfile do
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:phoenix, "~> 1.6.0"},
       {:gettext, "~> 0.11"},
+      {:httpoison, "~> 1.8.1"},
       {:plug_cowboy, "~> 2.1"},
       {:plug, "~> 1.7"},
       {:host, "~> 1.0.0"},
       {:cors_plug, "~> 1.5"},
-      {:jason, "~> 1.0"}
+      {:jason, "~> 1.0"},
+      {:yaml_elixir, "~> 2.8.0"}
     ]
   end
 end
