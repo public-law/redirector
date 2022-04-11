@@ -19,7 +19,7 @@ defmodule Redirector.Domains do
       |> Map.values()
       |> Enum.flat_map(fn x -> x end)
 
-    Logger.debug(fn -> "Loaded gov domains: #{inspect(domain_list)}" end)
+    Logger.info(fn -> "Loaded gov domains: #{inspect(domain_list)}" end)
     domain_list
   end
 end
