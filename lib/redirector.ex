@@ -12,6 +12,7 @@ defmodule Redirector do
 
   @private_list [
     "edu",
+    "edu.au",
     "org",
     "us",
     "ac.uk",
