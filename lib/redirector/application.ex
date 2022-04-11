@@ -7,8 +7,7 @@ defmodule Redirector.Application do
     # Define workers and child supervisors to be supervised
     children = [
       # Start the endpoint when the application starts
-      RedirectorWeb.Endpoint,
-      {Phoenix.PubSub, [name: Redirector.PubSub, adapter: Phoenix.PubSub.PG2]}
+      RedirectorWeb.Endpoint
 
       # Start your own worker by calling: Redirector.Worker.start_link(arg1, arg2, arg3)
       # worker(Redirector.Worker, [arg1, arg2, arg3]),

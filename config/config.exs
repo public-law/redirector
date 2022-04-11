@@ -9,8 +9,7 @@ import Config
 config :redirector, RedirectorWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "xwf/ACbUPPycH9J9L9RIk4ITv2bmtdha3SEcCizxDDCGyHFXzYVfYX1QsAKk9y6h",
-  render_errors: [view: RedirectorWeb.ErrorView, accepts: ~w(json)],
-  pubsub_server: Redirector.PubSub
+  render_errors: [view: RedirectorWeb.ErrorView, accepts: ~w(json)]
 
 # Configures Elixir's Logger
 config :logger, :console,
