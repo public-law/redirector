@@ -3,16 +3,23 @@ defmodule Redirector.Domains do
   Data source for domain names.
   """
 
+  use Memoize
+  require Logger
+
   @domains_yaml "https://raw.githubusercontent.com/public-law/datasets/master/Intergovernmental/Internet/governmental_domains.yaml"
 
-  def get_gov_domains do
+  defmemo gov_domains do
     response = HTTPoison.get(@domains_yaml)
 
     {:ok, %HTTPoison.Response{body: http_body}} = response
-    {:ok, data} = YamlElixir.read_from_string(http_body)
+    {:ok, yaml_data} = YamlElixir.read_from_string(http_body)
 
-    data
-    |> Map.values()
-    |> Enum.flat_map(fn x -> x end)
+    domain_list =
+      yaml_data
+      |> Map.values()
+      |> Enum.flat_map(fn x -> x end)
+
+    Logger.debug(fn -> "Loaded gov domains: #{inspect(domain_list)}" end)
+    domain_list
   end
 end
