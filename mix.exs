@@ -33,8 +33,7 @@ defmodule Redirector.Mixfile do
   defp deps do
     [
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
-      {:phoenix, "~> 1.5"},
-      {:phoenix_pubsub, "~> 2.0"},
+      {:phoenix, "~> 1.6.0"},
       {:gettext, "~> 0.11"},
       {:plug_cowboy, "~> 2.1"},
       {:plug, "~> 1.7"},
