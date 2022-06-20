@@ -42,7 +42,8 @@ defmodule Redirector.Mixfile do
       {:host, "~> 1.0.0"},
       {:cors_plug, "~> 1.5"},
       {:jason, "~> 1.0"},
-      {:yaml_elixir, "~> 2.8.0"}
+      {:yaml_elixir, "~> 2.8.0"},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end
 end
