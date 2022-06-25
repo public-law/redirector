@@ -16,17 +16,16 @@ defmodule RedirectorWeb.Router do
     get("/debug", ApiController, :debug)
   end
 
-
   scope "/", RedirectorWeb do
     pipe_through(:redirects)
 
     # Specific requests
 
-    get "/users/sign_in", RedirectController, :redirect_sign_in
-    get "/ads.txt", RedirectController, :redirect_ads_txt
-    get "/sitemap.xml.gz", RedirectController, :redirect_sitemap
-    get "/robots.txt", RedirectController, :redirect_robots
-    get "/blog/feed/", RedirectController, :blog_feed
+    get("/users/sign_in", RedirectController, :redirect_sign_in)
+    get("/ads.txt", RedirectController, :redirect_ads_txt)
+    get("/sitemap.xml.gz", RedirectController, :redirect_sitemap)
+    get("/robots.txt", RedirectController, :redirect_robots)
+    get("/blog/feed/", RedirectController, :blog_feed)
     get("/", RedirectController, :redirect_root)
 
     # oregonlaws.org
