@@ -33,7 +33,7 @@ defmodule Redirector.Mixfile do
   defp deps do
     [
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
-      {:phoenix, "~> 1.6.0"},
+      {:phoenix, "~> 1.6.10"},
       {:gettext, "~> 0.11"},
       {:httpoison, "~> 1.8.1"},
       {:memoize, "~> 1.4"},
@@ -42,6 +42,7 @@ defmodule Redirector.Mixfile do
       {:host, "~> 1.0.0"},
       {:cors_plug, "~> 1.5"},
       {:jason, "~> 1.0"},
+      {:phoenix_live_dashboard, "~> 0.5"},
       {:yaml_elixir, "~> 2.8.0"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]

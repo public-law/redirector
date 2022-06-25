@@ -23,7 +23,6 @@ defmodule Redirector do
     "ongov.net"
   ]
 
-  @spec preferred_visitor?([{:domain, binary}, ...]) :: boolean
   def preferred_visitor?(domain: domain) when is_bitstring(domain) do
     String.ends_with?(domain, domain_list())
   end
