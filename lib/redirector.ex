@@ -27,6 +27,9 @@ defmodule Redirector do
     String.ends_with?(domain, domain_list())
   end
 
+  @doc """
+  Returns a list of domains that are preferred.
+  """
   defmemo domain_list do
     result =
       Enum.concat(@private_list, Redirector.Domains.gov_domains())

@@ -35,7 +35,10 @@ defmodule RedirectorWeb.ApiController do
     |> send_resp(200, json_content)
   end
 
-  defp remote_info(conn) do
+  @doc """
+  Return the IP and domain of the request.
+  """
+  def remote_info(conn) do
     remote_ip =
       case x_forwarded_for(conn) do
         {:ok, addr} -> addr
@@ -51,14 +54,14 @@ defmodule RedirectorWeb.ApiController do
     {remote_ip, remote_domain}
   end
 
-  defp x_forwarded_for(conn) do
+  def x_forwarded_for(conn) do
     case Enum.find(conn.req_headers, fn {k, _v} -> k == "x-forwarded-for" end) do
       {"x-forwarded-for", ip_string} -> {:ok, ip_string}
       nil -> {:error, "Not found"}
     end
   end
 
-  defp as_string(ip: {a, b, c, d}) do
+  def as_string(ip: {a, b, c, d}) do
     "#{a}.#{b}.#{c}.#{d}"
   end
 end

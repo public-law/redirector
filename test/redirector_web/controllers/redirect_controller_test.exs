@@ -1,4 +1,8 @@
 defmodule RedirectorWeb.RedirectControllerTest do
+  @moduledoc """
+  Tests for all the redirects.
+  """
+
   use RedirectorWeb.ConnCase
 
   #
@@ -9,7 +13,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
     expected = "https://oregon.public.law/search?page=24&term=filing+fee"
 
     assert conn.status == 301
-    assert get_resp_header(conn, "location") == [expected]    
+    assert get_resp_header(conn, "location") == [expected]
   end
 
   test "An oregonlaws search without page", %{conn: conn} do
@@ -17,7 +21,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
     expected = "https://oregon.public.law/search?term=probate"
 
     assert conn.status == 301
-    assert get_resp_header(conn, "location") == [expected]    
+    assert get_resp_header(conn, "location") == [expected]
   end
 
   test "An oregonlaws search with object filter", %{conn: conn} do
@@ -25,9 +29,8 @@ defmodule RedirectorWeb.RedirectControllerTest do
     expected = "https://oregon.public.law/search?page=15&term=access"
 
     assert conn.status == 301
-    assert get_resp_header(conn, "location") == [expected]    
+    assert get_resp_header(conn, "location") == [expected]
   end
-
 
   #
   # General
@@ -39,7 +42,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
     assert conn.status == 301
     assert get_resp_header(conn, "location") == ["https://oregon.public.law/statutes/ors_316.003"]
   end
-  
+
   test "Catch-all works with weird stuff", %{conn: conn} do
     conn = get(conn, "/1/2/3/4/5.txt")
 
@@ -53,16 +56,13 @@ defmodule RedirectorWeb.RedirectControllerTest do
     assert conn.status == 301
     assert get_resp_header(conn, "location") == ["https://oregon.public.law/robb"]
   end
-  
+
   test "Catch-all works with older volume path", %{conn: conn} do
     conn = get(conn, "/ors/2011/volume/14")
 
     assert conn.status == 301
     assert get_resp_header(conn, "location") == ["https://oregon.public.law/ors/2011/volume/14"]
   end
-  
-
-
 
   test "Sign-in goes to the new site", %{conn: conn} do
     conn = get(conn, "/users/sign_in")
@@ -70,7 +70,6 @@ defmodule RedirectorWeb.RedirectControllerTest do
     assert conn.status == 301
     assert get_resp_header(conn, "location") == ["https://oregon.public.law/users/sign_in"]
   end
-  
 
   test "ads.txt goes to new site", %{conn: conn} do
     conn = get(conn, "/ads.txt")
@@ -78,12 +77,15 @@ defmodule RedirectorWeb.RedirectControllerTest do
     assert conn.status == 301
     assert get_resp_header(conn, "location") == ["https://oregon.public.law/ads.txt"]
   end
-  
+
   test "Sitemap goes to new site", %{conn: conn} do
     conn = get(conn, "/sitemap.xml.gz")
 
     assert conn.status == 301
-    assert get_resp_header(conn, "location") == ["https://oregon.public.law/sitemaps/sitemap.xml.gz"]
+
+    assert get_resp_header(conn, "location") == [
+             "https://oregon.public.law/sitemaps/sitemap.xml.gz"
+           ]
   end
 
   test "Blog feed goes to new blog location", %{conn: conn} do
@@ -92,7 +94,6 @@ defmodule RedirectorWeb.RedirectControllerTest do
     assert conn.status == 301
     assert get_resp_header(conn, "location") == ["https://blog.public.law/feed/"]
   end
-
 
   test "A simple page redirect", %{conn: conn} do
     conn = get(conn, "/robots.txt")
@@ -188,7 +189,10 @@ defmodule RedirectorWeb.RedirectControllerTest do
     conn = get(conn, "/ors/2013/chapter/777")
 
     assert(conn.status == 301)
-    assert get_resp_header(conn, "location") == ["https://oregon.public.law/statutes/ors_chapter_777"]
+
+    assert get_resp_header(conn, "location") == [
+             "https://oregon.public.law/statutes/ors_chapter_777"
+           ]
   end
 
   #

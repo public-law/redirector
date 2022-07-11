@@ -1,4 +1,8 @@
 defmodule Redirector.Application do
+  @moduledoc """
+  No idea what this is for - it's boilerplate.
+  """
+
   use Application
 
   # See https://hexdocs.pm/elixir/Application.html

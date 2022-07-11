@@ -1,4 +1,8 @@
 defmodule RedirectorWeb.ApiControllerTest do
+  @moduledoc """
+  Tests for the Preferred user API.
+  """
+
   use RedirectorWeb.ConnCase
 
   test "basic request is not preferred", %{conn: conn} do
