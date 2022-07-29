@@ -32,6 +32,7 @@ defmodule Redirector.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:credo, "~> 1.6.5", only: [:dev]},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:phoenix, "~> 1.6.0"},
       {:gettext, "~> 0.11"},
