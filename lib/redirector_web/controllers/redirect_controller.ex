@@ -29,7 +29,7 @@ defmodule RedirectorWeb.RedirectController do
   #
 
   def redirect_glossary_definition(conn, %{"phrase" => phrase}) do
-    permanent_redirect(conn, to: "#{@opl_url}/statutes/ors_volume_#{number}")
+    permanent_redirect(conn, to: "#{@www_url}/dictionary/entries/#{phrase}")
   end
 
   @spec redirect_ors_statutes(Plug.Conn.t(), any) :: Plug.Conn.t()
