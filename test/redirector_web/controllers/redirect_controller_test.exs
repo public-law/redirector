@@ -136,6 +136,13 @@ defmodule RedirectorWeb.RedirectControllerTest do
            ]
   end
 
+  test "Glossary root", %{conn: conn} do
+    conn = get(conn, "/glossary")
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == ["https://www.public.law/dictionary"]
+  end
+
   #
   # ORS Redirects
   #

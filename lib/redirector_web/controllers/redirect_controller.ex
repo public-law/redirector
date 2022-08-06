@@ -37,6 +37,8 @@ defmodule RedirectorWeb.RedirectController do
     permanent_redirect(conn, to: "#{@www_url}/dictionary/entries/#{fixed_up_phrase}")
   end
 
+  def redirect_glossary_root(conn, _params), do: permanent_redirect(conn, to: "#{@www_url}/dictionary")
+
   #
   # Other
   #

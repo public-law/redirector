@@ -44,6 +44,7 @@ defmodule RedirectorWeb.Router do
     #
     # Glossary
     #
+    get("/glossary", RedirectController, :redirect_glossary_root)
     get("/glossary/definition/:phrase", RedirectController, :redirect_glossary_definition)
 
     #
