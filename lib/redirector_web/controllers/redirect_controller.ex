@@ -21,6 +21,7 @@ defmodule RedirectorWeb.RedirectController do
   end
 
   def blog_feed(conn, _), do: permanent_redirect(conn, to: "https://blog.public.law/feed/")
+  def robb_blog_feed(conn, _), do: permanent_redirect(conn, to: "https://dogsnog.blog/feed/")
   def redirect_rss(conn, _), do: permanent_redirect(conn, to: "https://blog.public.law/rss")
 
   #

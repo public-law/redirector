@@ -27,6 +27,7 @@ defmodule RedirectorWeb.Router do
     get("/robots.txt", RedirectController, :redirect_robots)
     get("/rss", RedirectController, :redirect_rss)
     get("/blog/feed/", RedirectController, :blog_feed)
+    get("/robb/feed/", RedirectController, :robb_blog_feed)
     get("/", RedirectController, :redirect_root)
 
     #

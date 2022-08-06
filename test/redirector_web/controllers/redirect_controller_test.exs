@@ -105,6 +105,13 @@ defmodule RedirectorWeb.RedirectControllerTest do
     assert get_resp_header(conn, "location") == ["https://blog.public.law/rss"]
   end
 
+  test "Robb's blog feed goes to new blog location", %{conn: conn} do
+    conn = get(conn, "/robb/feed/")
+
+    assert conn.status == 301
+    assert get_resp_header(conn, "location") == ["https://dogsnog.blog/feed/"]
+  end
+
   #
   # Other
   #
