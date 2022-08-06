@@ -5,7 +5,7 @@ defmodule Redirector.Mixfile do
     [
       app: :redirector,
       version: "0.0.1",
-      elixir: "~> 1.7",
+      elixir: "~> 1.13.4",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
