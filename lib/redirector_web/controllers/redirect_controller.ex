@@ -63,10 +63,6 @@ defmodule RedirectorWeb.RedirectController do
     permanent_redirect(conn, to: "#{@opl_url}/statutes/ors_#{number}")
   end
 
-  def temp_redirect_ors_section(conn, %{"number" => number}) do
-    temporary_redirect(conn, to: "#{@opl_url}/statutes/ors_#{number}")
-  end
-
   def redirect_robots(conn, _),
     do: permanent_redirect(conn, to: "#{@www_url}/robots.txt")
 
@@ -151,12 +147,6 @@ defmodule RedirectorWeb.RedirectController do
   defp permanent_redirect(conn, to: url) do
     conn
     |> put_status(301)
-    |> redirect(external: url)
-  end
-
-  defp temporary_redirect(conn, to: url) do
-    conn
-    |> put_status(307)
     |> redirect(external: url)
   end
 end
