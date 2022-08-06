@@ -40,7 +40,10 @@ defmodule RedirectorWeb.Router do
     # With year
     get("/ors/:year/:number", RedirectController, :redirect_ors_section)
     get("/ors/:year/chapter/:number", RedirectController, :redirect_ors_chapter)
+
+    #
     # Glossary
+    #
     get("/glossary/definition/:phrase", RedirectController, :redirect_glossary_definition)
 
     #

@@ -132,7 +132,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
     assert conn.status == 301
 
     assert get_resp_header(conn, "location") == [
-             "https://www.public.law/dictionary/entries/alternate_juror"
+             "https://www.public.law/dictionary/entries/alternate-juror"
            ]
   end
 

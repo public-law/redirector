@@ -28,9 +28,18 @@ defmodule RedirectorWeb.RedirectController do
   # oregonlaws.org Redirects
   #
 
+  #
+  # Glossary
+  #
+
   def redirect_glossary_definition(conn, %{"phrase" => phrase}) do
-    permanent_redirect(conn, to: "#{@www_url}/dictionary/entries/#{phrase}")
+    fixed_up_phrase = String.replace(phrase, "_", "-")
+    permanent_redirect(conn, to: "#{@www_url}/dictionary/entries/#{fixed_up_phrase}")
   end
+
+  #
+  # Other
+  #
 
   def redirect_ors_statutes(conn, _params) do
     permanent_redirect(conn, to: "#{@opl_url}/statutes")
