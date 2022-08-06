@@ -20,9 +20,8 @@ defmodule RedirectorWeb.RedirectController do
     |> text("Error")
   end
 
-  def blog_feed(conn, _params) do
-    permanent_redirect(conn, to: "https://blog.public.law/feed/")
-  end
+  def blog_feed(conn, _), do: permanent_redirect(conn, to: "https://blog.public.law/feed/")
+  def redirect_rss(conn, _), do: permanent_redirect(conn, to: "https://blog.public.law/rss")
 
   #
   # oregonlaws.org Redirects
@@ -37,7 +36,8 @@ defmodule RedirectorWeb.RedirectController do
     permanent_redirect(conn, to: "#{@www_url}/dictionary/entries/#{fixed_up_phrase}")
   end
 
-  def redirect_glossary_root(conn, _params), do: permanent_redirect(conn, to: "#{@www_url}/dictionary")
+  def redirect_glossary_root(conn, _params),
+    do: permanent_redirect(conn, to: "#{@www_url}/dictionary")
 
   #
   # Other

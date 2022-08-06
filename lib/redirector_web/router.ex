@@ -25,6 +25,7 @@ defmodule RedirectorWeb.Router do
     get("/ads.txt", RedirectController, :redirect_ads_txt)
     get("/sitemap.xml.gz", RedirectController, :redirect_sitemap)
     get("/robots.txt", RedirectController, :redirect_robots)
+    get("/rss", RedirectController, :redirect_rss)
     get("/blog/feed/", RedirectController, :blog_feed)
     get("/", RedirectController, :redirect_root)
 
