@@ -2,7 +2,7 @@ defmodule RedirectorWeb.Router do
   use RedirectorWeb, :router
 
   pipeline :redirects do
-    plug(:accepts, ["json"])
+    plug(:accepts, ["html", "json"])
   end
 
   pipeline :api do
