@@ -57,9 +57,7 @@ defmodule RedirectorWeb.RedirectController do
   # Other
   #
 
-  def redirect_ors_statutes(conn, _) do
-    perm_redirect(conn, to: "#{@opl_url}/statutes")
-  end
+  def redirect_ors_statutes(conn, _), do: perm_redirect(conn, to: "#{@opl_url}/statutes")
 
   def redirect_ors_volume(conn, %{"number" => number}) do
     perm_redirect(conn, to: "#{@opl_url}/statutes/ors_volume_#{number}")
