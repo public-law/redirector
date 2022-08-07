@@ -26,7 +26,7 @@ defmodule RedirectorWeb.RedirectController do
   #
 
   def blog_feed(conn, _),      do: perm_redirect(conn, to: "#{@blg_url}/feed/")
-  def redirect_rss(conn, _),   do: perm_redirect(conn, to: "#{@blg_url}/rss")
+  def rss(conn, _),            do: perm_redirect(conn, to: "#{@blg_url}/rss")
   def robb_blog_feed(conn, _), do: perm_redirect(conn, to: "https://dogsnog.blog/feed/")
 
   #
@@ -47,35 +47,35 @@ defmodule RedirectorWeb.RedirectController do
   # Glossary
   #
 
-  def redirect_glossary_definition(conn, %{"phrase" => phrase}) do
+  def glossary_definition(conn, %{"phrase" => phrase}) do
     fixed_up_phrase = String.replace(phrase, "_", "-")
     perm_redirect(conn, to: "#{@www_url}/dictionary/entries/#{fixed_up_phrase}")
   end
 
-  def redirect_glossary_root(conn, _), do: perm_redirect(conn, to: "#{@www_url}/dictionary")
+  def glossary_root(conn, _), do: perm_redirect(conn, to: "#{@www_url}/dictionary")
 
   #
   # Other
   #
 
-  def redirect_ors_volume(conn, %{"number" => number}) do
+  def ors_volume(conn, %{"number" => number}) do
     perm_redirect(conn, to: "#{@opl_url}/statutes/ors_volume_#{number}")
   end
 
-  def redirect_ors_chapter(conn, %{"number" => number}) do
+  def ors_chapter(conn, %{"number" => number}) do
     perm_redirect(conn, to: "#{@opl_url}/statutes/ors_chapter_#{number}")
   end
 
-  def redirect_ors_section(conn, %{"number" => number}) do
+  def ors_section(conn, %{"number" => number}) do
     perm_redirect(conn, to: "#{@opl_url}/statutes/ors_#{number}")
   end
 
-  def redirect_ors_search(conn, %{"search" => term, "page" => page}) do
+  def ors_search(conn, %{"search" => term, "page" => page}) do
     query = URI.encode_query(%{page: page, term: term})
     perm_redirect(conn, to: "#{@opl_url}/search?#{query}")
   end
 
-  def redirect_ors_search(conn, %{"search" => term}) do
+  def ors_search(conn, %{"search" => term}) do
     query = URI.encode_query(%{term: term})
     perm_redirect(conn, to: "#{@opl_url}/search?#{query}")
   end
@@ -84,24 +84,24 @@ defmodule RedirectorWeb.RedirectController do
   # Root path Redirects
   #
 
-  def redirect_root(conn = %{host: "www.oregonlaws.org"}, _), do: perm_redirect(conn, to: @opl_url)
-  def redirect_root(conn = %{host: "oregonlaws.org"}, _),     do: perm_redirect(conn, to: @opl_url)
-  def redirect_root(conn, _),                                 do: perm_redirect(conn, to: "#{@www_url}")
+  def root(conn = %{host: "www.oregonlaws.org"}, _), do: perm_redirect(conn, to: @opl_url)
+  def root(conn = %{host: "oregonlaws.org"}, _),     do: perm_redirect(conn, to: @opl_url)
+  def root(conn, _),                                 do: perm_redirect(conn, to: "#{@www_url}")
 
   #
   # Weblaws.org Redirects
   #
 
-  def redirect_state(conn, %{"segments" => [state = "california" | tail]}),
+  def state(conn, %{"segments" => [state = "california" | tail]}),
     do: do_state_redirect(conn, state, tail)
 
-  def redirect_state(conn, %{"segments" => [state = "new_york" | tail]}),
+  def state(conn, %{"segments" => [state = "new_york" | tail]}),
     do: do_state_redirect(conn, state, tail)
 
-  def redirect_state(conn, %{"segments" => [state = "texas" | tail]}),
+  def state(conn, %{"segments" => [state = "texas" | tail]}),
     do: do_state_redirect(conn, state, tail)
 
-  def redirect_state(conn, %{"segments" => segments}),
+  def state(conn, %{"segments" => segments}),
     do: perm_redirect(conn, to: "#{@opl_url}/#{Enum.join(segments, "/")}")
 
   defp do_state_redirect(conn, state, segments) do
@@ -111,7 +111,7 @@ defmodule RedirectorWeb.RedirectController do
     perm_redirect(conn, to: "https://#{domain}.public.law/#{path}")
   end
 
-  def redirect_old_format(conn, %{"segments" => [state, _collection, page]}) do
+  def old_format(conn, %{"segments" => [state, _collection, page]}) do
     domain = translate_state(state)
 
     corrected_page =
