@@ -32,17 +32,11 @@ defmodule RedirectorWeb.RedirectController do
   # Other static routes
   #
 
-  def robots(conn, _),       do: perm_redirect(conn, to: "#{@www_url}/robots.txt")
-  def ads_txt(conn, _),      do: perm_redirect(conn, to: "#{@opl_url}/ads.txt")
-  def sign_in(conn, _),      do: perm_redirect(conn, to: "#{@opl_url}/users/sign_in")
   def sitemap(conn, _),      do: perm_redirect(conn, to: "#{@opl_url}/sitemaps/sitemap.xml.gz")
   def ors_statutes(conn, _), do: perm_redirect(conn, to: "#{@opl_url}/statutes")
 
-  def opl_redirect(conn, %{"segments" => segments}),
-    do: perm_redirect(conn, to: "#{@opl_url}/#{Enum.join(segments, "/")}")
-
-  def www_redirect(conn, %{"segments" => segments}),
-    do: perm_redirect(conn, to: "#{@www_url}/#{Enum.join(segments, "/")}")
+  def www_redirect(conn, _), do: perm_redirect(conn, to: "#{@www_url}#{conn.request_path}")
+  def opl_redirect(conn, _), do: perm_redirect(conn, to: "#{@opl_url}#{conn.request_path}")
 
   #
   # oregonlaws.org Redirects
@@ -75,7 +69,6 @@ defmodule RedirectorWeb.RedirectController do
   def redirect_ors_section(conn, %{"number" => number}) do
     perm_redirect(conn, to: "#{@opl_url}/statutes/ors_#{number}")
   end
-
 
   def redirect_ors_search(conn, %{"search" => term, "page" => page}) do
     query = URI.encode_query(%{page: page, term: term})

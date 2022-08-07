@@ -2,7 +2,7 @@ defmodule RedirectorWeb.Router do
   use RedirectorWeb, :router
 
   pipeline :redirects do
-    plug(:accepts, ["html"])
+    plug(:accepts, ["json"])
   end
 
   pipeline :api do
@@ -22,7 +22,7 @@ defmodule RedirectorWeb.Router do
     # Static routes
 
     get("/sitemap.xml.gz", RedirectController, :sitemap)
-    get("/robots.txt",     RedirectController, :robots)
+    get("/robots.txt",     RedirectController, :www_redirect)
     get("/rss",            RedirectController, :redirect_rss)
     get("/blog/feed/",     RedirectController, :blog_feed)
     get("/robb/feed/",     RedirectController, :robb_blog_feed)
