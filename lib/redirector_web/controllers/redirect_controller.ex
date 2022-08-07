@@ -32,10 +32,11 @@ defmodule RedirectorWeb.RedirectController do
   # Other static routes
   #
 
-  def redirect_robots(conn, _),  do: perm_redirect(conn, to: "#{@www_url}/robots.txt")
-  def redirect_ads_txt(conn, _), do: perm_redirect(conn, to: "#{@opl_url}/ads.txt")
-  def redirect_sign_in(conn, _), do: perm_redirect(conn, to: "#{@opl_url}/users/sign_in")
-  def redirect_sitemap(conn, _), do: perm_redirect(conn, to: "#{@opl_url}/sitemaps/sitemap.xml.gz")
+  def robots(conn, _),       do: perm_redirect(conn, to: "#{@www_url}/robots.txt")
+  def ads_txt(conn, _),      do: perm_redirect(conn, to: "#{@opl_url}/ads.txt")
+  def sign_in(conn, _),      do: perm_redirect(conn, to: "#{@opl_url}/users/sign_in")
+  def sitemap(conn, _),      do: perm_redirect(conn, to: "#{@opl_url}/sitemaps/sitemap.xml.gz")
+  def ors_statutes(conn, _), do: perm_redirect(conn, to: "#{@opl_url}/statutes")
 
 
   #
@@ -57,7 +58,6 @@ defmodule RedirectorWeb.RedirectController do
   # Other
   #
 
-  def redirect_ors_statutes(conn, _), do: perm_redirect(conn, to: "#{@opl_url}/statutes")
 
   def redirect_ors_volume(conn, %{"number" => number}) do
     perm_redirect(conn, to: "#{@opl_url}/statutes/ors_volume_#{number}")
