@@ -9,6 +9,7 @@ defmodule RedirectorWeb.RedirectController do
 
   @opl_url "https://oregon.public.law"
   @www_url "https://www.public.law"
+  @blg_url "https://blog.public.law"
 
   #
   # General requests
@@ -24,8 +25,8 @@ defmodule RedirectorWeb.RedirectController do
   # Blog
   #
 
-  def blog_feed(conn, _),      do: perm_redirect(conn, to: "https://blog.public.law/feed/")
-  def redirect_rss(conn, _),   do: perm_redirect(conn, to: "https://blog.public.law/rss")
+  def blog_feed(conn, _),      do: perm_redirect(conn, to: "#{@blg_url}/feed/")
+  def redirect_rss(conn, _),   do: perm_redirect(conn, to: "#{@blg_url}/rss")
   def robb_blog_feed(conn, _), do: perm_redirect(conn, to: "https://dogsnog.blog/feed/")
 
   #
@@ -56,7 +57,6 @@ defmodule RedirectorWeb.RedirectController do
   #
   # Other
   #
-
 
   def redirect_ors_volume(conn, %{"number" => number}) do
     perm_redirect(conn, to: "#{@opl_url}/statutes/ors_volume_#{number}")
