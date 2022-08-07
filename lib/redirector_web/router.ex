@@ -21,8 +21,6 @@ defmodule RedirectorWeb.Router do
 
     # Static routes
 
-    get("/users/sign_in",  RedirectController, :sign_in)
-    get("/ads.txt",        RedirectController, :ads_txt)
     get("/sitemap.xml.gz", RedirectController, :sitemap)
     get("/robots.txt",     RedirectController, :robots)
     get("/rss",            RedirectController, :redirect_rss)

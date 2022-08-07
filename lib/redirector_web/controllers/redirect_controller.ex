@@ -38,8 +38,8 @@ defmodule RedirectorWeb.RedirectController do
   def sitemap(conn, _),      do: perm_redirect(conn, to: "#{@opl_url}/sitemaps/sitemap.xml.gz")
   def ors_statutes(conn, _), do: perm_redirect(conn, to: "#{@opl_url}/statutes")
 
-  def opl_redirect(conn, %{"path" => path}), do: perm_redirect(conn, to: "#{@opl_url}/#{path}")
-
+  def opl(conn, %{"segments" => segments}),
+    do: perm_redirect(conn, to: "#{@opl_url}/#{Enum.join(segments, "/")}")
 
   #
   # oregonlaws.org Redirects
