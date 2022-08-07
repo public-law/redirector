@@ -24,8 +24,8 @@ defmodule RedirectorWeb.RedirectController do
   # Blog
   #
 
-  def blog_feed(conn, _), do: permanent_redirect(conn, to: "https://blog.public.law/feed/")
-  def redirect_rss(conn, _), do: permanent_redirect(conn, to: "https://blog.public.law/rss")
+  def blog_feed(conn, _),      do: permanent_redirect(conn, to: "https://blog.public.law/feed/")
+  def redirect_rss(conn, _),   do: permanent_redirect(conn, to: "https://blog.public.law/rss")
   def robb_blog_feed(conn, _), do: permanent_redirect(conn, to: "https://dogsnog.blog/feed/")
 
   #
@@ -101,7 +101,6 @@ defmodule RedirectorWeb.RedirectController do
   # Weblaws.org Redirects
   #
 
-  @spec redirect_state(Plug.Conn.t(), map) :: Plug.Conn.t()
   def redirect_state(conn, %{"segments" => [state = "california" | tail]}),
     do: do_state_redirect(conn, state, tail)
 
@@ -121,7 +120,6 @@ defmodule RedirectorWeb.RedirectController do
     permanent_redirect(conn, to: "https://#{domain}.public.law/#{path}")
   end
 
-  @spec redirect_old_format(Plug.Conn.t(), map) :: Plug.Conn.t()
   def redirect_old_format(conn, %{"segments" => [state, _collection, page]}) do
     domain = translate_state(state)
 
