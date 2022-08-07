@@ -19,7 +19,7 @@ defmodule RedirectorWeb.Router do
   scope "/", RedirectorWeb do
     pipe_through(:redirects)
 
-    # Specific requests
+    # Static routes
 
     get("/users/sign_in",  RedirectController, :sign_in)
     get("/ads.txt",        RedirectController, :ads_txt)
