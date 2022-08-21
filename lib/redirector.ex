@@ -24,7 +24,8 @@ defmodule Redirector do
   ]
 
   def preferred_visitor?(domain: domain) when is_bitstring(domain) do
-    String.ends_with?(domain, domain_list())
+    # String.ends_with?(domain, domain_list())
+    String.ends_with?(domain, @private_list)
   end
 
   defmemo domain_list do
