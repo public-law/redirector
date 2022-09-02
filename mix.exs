@@ -32,16 +32,14 @@ defmodule Redirector.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:cors_plug, ">= 1.5.0"},
       {:credo, ">= 1.6.5", only: [:dev]},
       {:dialyxir, ">= 1.0.0", only: [:dev], runtime: false},
       {:phoenix, "> 1.6.0"},
       {:gettext, ">= 0.11.0"},
       {:httpoison, ">= 1.8.1"},
-      {:memoize, ">= 1.4.0"},
       {:plug_cowboy, ">= 2.1.0"},
       {:plug, ">= 1.7.0"},
-      {:host, ">= 1.0.0"},
-      {:cors_plug, ">= 1.5.0"},
       {:jason, ">= 1.0.0"},
       {:yaml_elixir, ">= 2.8.0"}
     ]
