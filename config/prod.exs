@@ -15,11 +15,11 @@ import Config
 # which you typically run after static files are built.
 config :redirector, RedirectorWeb.Endpoint,
   load_from_system_env: true,
-  url: [host: "example.com", port: 80],
+  url: [host: "www.oregonlaws.org", port: 80],
   secret_key_base: System.get_env("SECRET_KEY_BASE")
 
 # Do not print debug messages in production
-config :logger, level: :info
+config :logger, level: :debug
 
 # ## SSL Support
 #
@@ -28,7 +28,7 @@ config :logger, level: :info
 #
 #     config :redirector, RedirectorWeb.Endpoint,
 #       ...
-#       url: [host: "example.com", port: 443],
+#       url: [host: "www.oregonlaws.org", port: 443],
 #       https: [:inet6,
 #               port: 443,
 #               keyfile: System.get_env("SOME_APP_SSL_KEY_PATH"),
