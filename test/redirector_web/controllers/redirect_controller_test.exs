@@ -97,7 +97,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
     assert conn.status == 301
 
     assert get_resp_header(conn, "location") == [
-             "https://blog.public.law/2009/08/how-does-oregonlawsorg-work/"
+             "https://blog.public.law/2009/08/how-does-oregonlawsorg-work"
            ]
   end
 
