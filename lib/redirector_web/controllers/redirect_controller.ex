@@ -25,15 +25,23 @@ defmodule RedirectorWeb.RedirectController do
   # Blog
   #
 
-  def blog_feed(conn, _),      do: perm_redirect(conn, to: "#{@blg_url}/feed/")
-  def rss(conn, _),            do: perm_redirect(conn, to: "#{@blg_url}/rss")
+  def blog_feed(conn, _), do: perm_redirect(conn, to: "#{@blg_url}/feed/")
+  def rss(conn, _), do: perm_redirect(conn, to: "#{@blg_url}/rss")
   def robb_blog_feed(conn, _), do: perm_redirect(conn, to: "https://dogsnog.blog/feed/")
+
+  def blog_page(conn, params) do
+    year = params["year"]
+    month = params["month"]
+    slug = params["slug"]
+
+    perm_redirect(conn, to: "#{@blg_url}/#{year}/#{month}/#{slug}")
+  end
 
   #
   # Other static routes
   #
 
-  def sitemap(conn, _),      do: perm_redirect(conn, to: "#{@opl_url}/sitemaps/sitemap.xml.gz")
+  def sitemap(conn, _), do: perm_redirect(conn, to: "#{@opl_url}/sitemaps/sitemap.xml.gz")
   def ors_statutes(conn, _), do: perm_redirect(conn, to: "#{@opl_url}/statutes")
 
   def www_redirect(conn, _), do: perm_redirect(conn, to: "#{@www_url}#{conn.request_path}")
@@ -85,8 +93,8 @@ defmodule RedirectorWeb.RedirectController do
   #
 
   def root(conn = %{host: "www.oregonlaws.org"}, _), do: perm_redirect(conn, to: @opl_url)
-  def root(conn = %{host: "oregonlaws.org"}, _),     do: perm_redirect(conn, to: @opl_url)
-  def root(conn, _),                                 do: perm_redirect(conn, to: "#{@www_url}")
+  def root(conn = %{host: "oregonlaws.org"}, _), do: perm_redirect(conn, to: @opl_url)
+  def root(conn, _), do: perm_redirect(conn, to: "#{@www_url}")
 
   #
   # Weblaws.org Redirects
