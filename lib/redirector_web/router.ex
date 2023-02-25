@@ -22,7 +22,7 @@ defmodule RedirectorWeb.Router do
     # Static routes
 
     get("/sitemap.xml.gz", RedirectController, :sitemap)
-    get("/robots.txt", RedirectController, :www_redirect)
+    get("/robots.txt", RedirectController, :opl_redirect)
     get("/rss", RedirectController, :rss)
     get("/blog/feed/", RedirectController, :blog_feed)
     get("/robb/feed/", RedirectController, :robb_blog_feed)
