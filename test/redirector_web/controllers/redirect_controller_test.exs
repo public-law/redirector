@@ -130,7 +130,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
     conn = get(conn, "/robots.txt")
 
     assert conn.status == 301
-    assert get_resp_header(conn, "location") == ["https://www.public.law/robots.txt"]
+    assert get_resp_header(conn, "location") == ["https://oregon.public.law/robots.txt"]
   end
 
   #
