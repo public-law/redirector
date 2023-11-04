@@ -7,7 +7,6 @@ defmodule Redirector.Mixfile do
       version: "0.0.1",
       elixir: "~> 1.15.0",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       build_embedded: Mix.env() == :prod,
       deps: deps()
@@ -36,6 +35,7 @@ defmodule Redirector.Mixfile do
       {:credo, ">= 1.6.5", only: [:dev]},
       {:dialyxir, ">= 1.0.0", only: [:dev], runtime: false},
       {:phoenix, "> 1.6.0"},
+      {:phoenix_view, ">= 1.0.0"},
       {:gettext, ">= 0.11.0"},
       {:httpoison, ">= 1.8.1"},
       {:memoize, ">= 1.4.0"},
