@@ -9,7 +9,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
   #
   test "An oregonlaws search", %{conn: conn} do
     conn = get(conn, "/page?page=24&search=filing+fee")
-    expected = "https://oregon.public.law/search?page=24&term=filing+fee"
+    expected = "https://oregon.public.law/search?term=filing+fee&page=24"
 
     assert conn.status == 301
     assert get_resp_header(conn, "location") == [expected]
@@ -25,7 +25,7 @@ defmodule RedirectorWeb.RedirectControllerTest do
 
   test "An oregonlaws search with object filter", %{conn: conn} do
     conn = get(conn, "/page?object_filter=36&page=15&search=access")
-    expected = "https://oregon.public.law/search?page=15&term=access"
+    expected = "https://oregon.public.law/search?term=access&page=15"
 
     assert conn.status == 301
     assert get_resp_header(conn, "location") == [expected]
